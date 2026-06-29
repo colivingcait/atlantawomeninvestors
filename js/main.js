@@ -10,9 +10,9 @@
 const CONFIG = {
   // Eventbrite: paste your event ID (the number at the end of an event URL)
   // to embed an inline RSVP/checkout widget. Leave empty to show a link.
-  eventbriteEventId: "",            // e.g. "1234567890123"
+  eventbriteEventId: "1990612059255", // Women Real Estate Investors Meetup
   // Your public Eventbrite organizer or event page (used for the fallback link).
-  eventbriteUrl: "https://www.eventbrite.com/",
+  eventbriteUrl: "https://www.eventbrite.com/e/women-real-estate-investors-meetup-tickets-1990612059255",
 
   // Meetup recurrence used to build the calendar + "add to calendar".
   // weekday: 0=Sun ... 6=Sat. nth: 1=first, 2=second, 3=third, 4=fourth, -1=last.
