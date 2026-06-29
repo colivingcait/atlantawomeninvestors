@@ -17,11 +17,11 @@ const CONFIG = {
   // Meetup recurrence used to build the calendar + "add to calendar".
   // weekday: 0=Sun ... 6=Sat. nth: 1=first, 2=second, 3=third, 4=fourth, -1=last.
   meetup: {
-    weekday: 4,          // Thursday
-    nth: 2,              // 2nd Thursday of each month
+    weekday: 2,          // Tuesday
+    nth: 4,              // 4th Tuesday of each month
     startHour: 18,       // 6:00 PM
-    startMinute: 30,
-    durationHours: 2,
+    startMinute: 0,
+    durationHours: 3,    // 6–9 PM
     title: "Atlanta Women Investors Meetup",
     location: "Atlanta, GA",
     description: "Monthly meetup for women building wealth through real estate. RSVP on Eventbrite.",
