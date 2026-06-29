@@ -22,9 +22,9 @@ const CONFIG = {
     startHour: 18,       // 6:00 PM
     startMinute: 0,
     durationHours: 3,    // 6–9 PM
-    title: "Atlanta Women Investors Meetup",
-    location: "Atlanta, GA",
-    description: "Monthly meetup for women building wealth through real estate. RSVP on Eventbrite.",
+    title: "Women Real Estate Investors Meetup",
+    location: "Atlanta, GA (venue TBA)",
+    description: "Monthly meetup for women building wealth through real estate. Co-hosted by Caitlyn Verdugo & Jasmine Brown. RSVP on Eventbrite.",
   },
 };
 

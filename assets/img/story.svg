@@ -1,49 +1,49 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 460" width="560" height="460" role="img" aria-label="Illustration: women collaborating around real estate growth">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#1f5448"/>
-      <stop offset="1" stop-color="#11302a"/>
+      <stop offset="0" stop-color="#6f9079"/>
+      <stop offset="1" stop-color="#3c5748"/>
     </linearGradient>
-    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#d8b667"/>
-      <stop offset="1" stop-color="#c9a24b"/>
+    <linearGradient id="accent" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#bcd0c1"/>
+      <stop offset="1" stop-color="#94b09c"/>
     </linearGradient>
   </defs>
 
   <rect width="560" height="460" rx="20" fill="url(#bg)"/>
 
   <!-- skyline -->
-  <g opacity="0.5">
-    <rect x="60" y="250" width="44" height="150" rx="4" fill="#2c6b5c"/>
-    <rect x="116" y="210" width="50" height="190" rx="4" fill="#256153"/>
-    <rect x="178" y="280" width="40" height="120" rx="4" fill="#2c6b5c"/>
-    <rect x="392" y="240" width="46" height="160" rx="4" fill="#256153"/>
-    <rect x="450" y="200" width="50" height="200" rx="4" fill="#2c6b5c"/>
+  <g opacity="0.45">
+    <rect x="60" y="250" width="44" height="150" rx="4" fill="#6f9079"/>
+    <rect x="116" y="210" width="50" height="190" rx="4" fill="#7ea087"/>
+    <rect x="178" y="280" width="40" height="120" rx="4" fill="#6f9079"/>
+    <rect x="392" y="240" width="46" height="160" rx="4" fill="#7ea087"/>
+    <rect x="450" y="200" width="50" height="200" rx="4" fill="#6f9079"/>
   </g>
 
   <!-- rising growth line -->
-  <path d="M70 360 L180 300 L270 320 L360 230 L470 170" fill="none" stroke="url(#gold)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="470" cy="170" r="9" fill="#d8b667"/>
-  <circle cx="360" cy="230" r="7" fill="#faf6ee"/>
-  <circle cx="180" cy="300" r="7" fill="#faf6ee"/>
+  <path d="M70 360 L180 300 L270 320 L360 230 L470 170" fill="none" stroke="url(#accent)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="470" cy="170" r="9" fill="#bcd0c1"/>
+  <circle cx="360" cy="230" r="7" fill="#f5f2ea"/>
+  <circle cx="180" cy="300" r="7" fill="#f5f2ea"/>
 
   <!-- three figures (women) -->
   <g transform="translate(180,150)">
-    <circle cx="0" cy="0" r="26" fill="#9a5278"/>
-    <path d="M-34 96 a34 40 0 0 1 68 0 z" fill="#7a3b5d"/>
+    <circle cx="0" cy="0" r="26" fill="#b27a5e"/>
+    <path d="M-34 96 a34 40 0 0 1 68 0 z" fill="#9c6a50"/>
   </g>
   <g transform="translate(280,135)">
-    <circle cx="0" cy="0" r="30" fill="#d8b667"/>
-    <path d="M-38 104 a38 44 0 0 1 76 0 z" fill="#c9a24b"/>
+    <circle cx="0" cy="0" r="30" fill="#bcd0c1"/>
+    <path d="M-38 104 a38 44 0 0 1 76 0 z" fill="#94b09c"/>
   </g>
   <g transform="translate(380,150)">
-    <circle cx="0" cy="0" r="26" fill="#f1e9da"/>
-    <path d="M-34 96 a34 40 0 0 1 68 0 z" fill="#e3d9c5"/>
+    <circle cx="0" cy="0" r="26" fill="#f5f2ea"/>
+    <path d="M-34 96 a34 40 0 0 1 68 0 z" fill="#e3ddd0"/>
   </g>
 
   <!-- little house key motif -->
   <g transform="translate(280,300)">
-    <path d="M0 -20 L26 4 L18 4 L18 30 L-18 30 L-18 4 L-26 4 Z" fill="#faf6ee" opacity="0.95"/>
-    <rect x="-7" y="10" width="14" height="20" rx="2" fill="#194339"/>
+    <path d="M0 -20 L26 4 L18 4 L18 30 L-18 30 L-18 4 L-26 4 Z" fill="#f5f2ea" opacity="0.95"/>
+    <rect x="-7" y="10" width="14" height="20" rx="2" fill="#3c5748"/>
   </g>
 </svg>
