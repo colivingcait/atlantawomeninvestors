@@ -39,6 +39,7 @@
         <a href="#about">About</a>
         <a href="#story">Our Story</a>
         <a href="#hosts">Hosts</a>
+        <a href="#gallery">Gallery</a>
         <a href="#meetups">Meetups</a>
         <a href="#calendar">Calendar</a>
         <a href="#sponsors">Sponsors</a>
@@ -152,22 +153,71 @@
         </p>
 
         <div class="hosts-grid">
-          <!-- To use real photos, replace the initials span with:
-               <img src="assets/img/host-caitlyn.jpg" alt="Caitlyn Verdugo" /> -->
+          <!-- PHOTO SLOT: drop a square headshot at assets/img/host-caitlyn.jpg
+               (just save your photo with that exact name — no code change needed). -->
           <article class="host-card">
-            <div class="host-avatar"><span>CV</span></div>
+            <div class="host-avatar">
+              <img src="assets/img/host-caitlyn.jpg" alt="Caitlyn Verdugo"
+                   onerror="this.onerror=null;this.src='assets/img/host-placeholder.svg';" />
+            </div>
             <div class="host-info">
               <h3>Caitlyn Verdugo</h3>
               <p class="host-role">Investor &amp; Realtor</p>
             </div>
           </article>
+          <!-- PHOTO SLOT: drop a square headshot at assets/img/host-jasmine.jpg -->
           <article class="host-card">
-            <div class="host-avatar"><span>JB</span></div>
+            <div class="host-avatar">
+              <img src="assets/img/host-jasmine.jpg" alt="Jasmine Brown"
+                   onerror="this.onerror=null;this.src='assets/img/host-placeholder.svg';" />
+            </div>
             <div class="host-info">
               <h3>Jasmine Brown</h3>
               <p class="host-role">Investor &amp; Lender</p>
             </div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ GALLERY ============ -->
+    <section class="section section-alt" id="gallery">
+      <div class="container">
+        <p class="section-eyebrow">Our community</p>
+        <h2 class="section-title">Moments from our meetups</h2>
+        <p class="section-lede">
+          A look at the women, the connections, and the energy in the room. Want to be
+          in the next photo? Come join us.
+        </p>
+
+        <!-- PHOTO SLOTS: drop your photos in as assets/img/meetup-1.jpg … meetup-6.jpg
+             (any landscape photos work). Each tile falls back to a placeholder until
+             you add a photo. Add or remove tiles freely. -->
+        <div class="gallery-grid">
+          <figure class="gallery-item">
+            <img src="assets/img/meetup-1.jpg" alt="Atlanta Women Investors meetup"
+                 loading="lazy" onerror="this.onerror=null;this.src='assets/img/gallery-placeholder.svg';" />
+          </figure>
+          <figure class="gallery-item">
+            <img src="assets/img/meetup-2.jpg" alt="Atlanta Women Investors meetup"
+                 loading="lazy" onerror="this.onerror=null;this.src='assets/img/gallery-placeholder.svg';" />
+          </figure>
+          <figure class="gallery-item">
+            <img src="assets/img/meetup-3.jpg" alt="Atlanta Women Investors meetup"
+                 loading="lazy" onerror="this.onerror=null;this.src='assets/img/gallery-placeholder.svg';" />
+          </figure>
+          <figure class="gallery-item">
+            <img src="assets/img/meetup-4.jpg" alt="Atlanta Women Investors meetup"
+                 loading="lazy" onerror="this.onerror=null;this.src='assets/img/gallery-placeholder.svg';" />
+          </figure>
+          <figure class="gallery-item">
+            <img src="assets/img/meetup-5.jpg" alt="Atlanta Women Investors meetup"
+                 loading="lazy" onerror="this.onerror=null;this.src='assets/img/gallery-placeholder.svg';" />
+          </figure>
+          <figure class="gallery-item">
+            <img src="assets/img/meetup-6.jpg" alt="Atlanta Women Investors meetup"
+                 loading="lazy" onerror="this.onerror=null;this.src='assets/img/gallery-placeholder.svg';" />
+          </figure>
         </div>
       </div>
     </section>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300" role="img" aria-label="Add a meetup photo">
+  <rect width="400" height="300" fill="#e6ede6"/>
+  <rect x="0.5" y="0.5" width="399" height="299" fill="none" stroke="#bcd0c1" stroke-width="2" stroke-dasharray="8 8"/>
+  <!-- image icon -->
+  <g transform="translate(150,96)" fill="#6f9079">
+    <rect x="0" y="0" width="100" height="76" rx="10" fill="#ffffff" stroke="#bcd0c1" stroke-width="2"/>
+    <circle cx="28" cy="26" r="11" fill="#94b09c"/>
+    <path d="M10 64 L40 38 L60 54 L74 44 L90 64 Z" fill="#6f9079"/>
+  </g>
+  <text x="200" y="210" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" fill="#51635a" font-weight="600">Add a meetup photo</text>
+</svg>

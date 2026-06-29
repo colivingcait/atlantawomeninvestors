@@ -178,6 +178,21 @@ a:hover { color: var(--forest-800); }
 .host-info p { margin: 0; color: var(--ink-soft); font-size: 0.95rem; }
 .host-role { color: var(--teal-600); font-weight: 600; }
 
+/* ---------- Gallery ---------- */
+.gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.gallery-item {
+  margin: 0; border-radius: var(--radius); overflow: hidden; aspect-ratio: 4 / 3;
+  background: var(--cream-200); box-shadow: var(--shadow-sm);
+}
+.gallery-item img {
+  width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease;
+}
+.gallery-item:hover img { transform: scale(1.05); }
+
+@media (max-width: 760px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
 /* ---------- Eventbrite ---------- */
 .eventbrite-wrap { max-width: 760px; }
 .eventbrite-widget { min-height: 120px; }
