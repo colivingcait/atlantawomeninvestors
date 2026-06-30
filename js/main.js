@@ -5,28 +5,10 @@
    ========================================================= */
 
 /* ------------------------------------------------------------------
-   CONFIG — organizers, edit these values.
+   CONFIG comes from js/config.js (window.CONFIG), shared with /event.
+   Edit settings there.
    ------------------------------------------------------------------ */
-const CONFIG = {
-  // Eventbrite: paste your event ID (the number at the end of an event URL)
-  // to embed an inline RSVP/checkout widget. Leave empty to show a link.
-  eventbriteEventId: "1990612059255", // Women Real Estate Investors Meetup
-  // Your public Eventbrite organizer or event page (used for the fallback link).
-  eventbriteUrl: "https://www.eventbrite.com/e/women-real-estate-investors-meetup-tickets-1990612059255",
-
-  // Meetup recurrence used to build the calendar + "add to calendar".
-  // weekday: 0=Sun ... 6=Sat. nth: 1=first, 2=second, 3=third, 4=fourth, -1=last.
-  meetup: {
-    weekday: 2,          // Tuesday
-    nth: 4,              // 4th Tuesday of each month
-    startHour: 18,       // 6:00 PM
-    startMinute: 0,
-    durationHours: 3,    // 6–9 PM
-    title: "Women Real Estate Investors Meetup",
-    location: "Atlanta, GA (venue TBA)",
-    description: "Monthly meetup for women building wealth through real estate. Co-hosted by Caitlyn Verdugo & Jasmine Brown. RSVP on Eventbrite.",
-  },
-};
+const CONFIG = window.CONFIG;
 
 /* ------------------------------------------------------------------
    Mobile nav toggle
@@ -77,6 +59,92 @@ function nextMeetupDate(from = new Date()) {
   dt.setHours(CONFIG.meetup.startHour, CONFIG.meetup.startMinute, 0, 0);
   return dt;
 }
+
+/* ------------------------------------------------------------------
+   Upcoming topics (from js/events.js)
+   ------------------------------------------------------------------ */
+function getEvents() {
+  return Array.isArray(window.EVENTS) ? window.EVENTS.slice() : [];
+}
+
+function parseEventDate(str) {
+  // "YYYY-MM-DD" -> local Date at the meetup start time
+  const [y, m, d] = String(str).split("-").map(Number);
+  const dt = new Date(y, (m || 1) - 1, d || 1);
+  dt.setHours(CONFIG.meetup.startHour, CONFIG.meetup.startMinute, 0, 0);
+  return dt;
+}
+
+function upcomingEvents(from = new Date()) {
+  const startOfToday = new Date(from.getFullYear(), from.getMonth(), from.getDate());
+  return getEvents()
+    .filter((e) => e && e.date && parseEventDate(e.date) >= startOfToday)
+    .sort((a, b) => parseEventDate(a.date) - parseEventDate(b.date));
+}
+
+function eventForDay(year, month, day) {
+  return getEvents().find((e) => {
+    const dt = parseEventDate(e.date);
+    return dt.getFullYear() === year && dt.getMonth() === month && dt.getDate() === day;
+  });
+}
+
+(function topics() {
+  const featured = document.getElementById("topic-featured");
+  const list = document.getElementById("topic-list");
+  const empty = document.getElementById("topic-empty");
+  if (!featured || !list) return;
+
+  const upcoming = upcomingEvents();
+  const dateOpts = { weekday: "long", month: "long", day: "numeric", year: "numeric" };
+
+  if (!upcoming.length) {
+    if (empty) empty.hidden = false;
+    return;
+  }
+
+  const rsvpFor = (e) => e.eventbriteUrl || CONFIG.eventbriteUrl;
+  const paragraphs = (body) =>
+    String(body || "")
+      .split(/\n{2,}/)
+      .map((p) => p.trim())
+      .filter(Boolean)
+      .map((p) => `<p>${p.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</p>`) // basic escaping
+      .join("");
+
+  // ---- Featured (nearest) ----
+  const f = upcoming[0];
+  const fDate = parseEventDate(f.date);
+  featured.innerHTML = `
+    <div class="topic-feature-head">
+      <span class="topic-badge">Next meetup</span>
+      <span class="topic-date">${fDate.toLocaleDateString("en-US", dateOpts)} · ${CONFIG.meetup.startHour > 12 ? CONFIG.meetup.startHour - 12 : CONFIG.meetup.startHour}–${CONFIG.meetup.startHour + CONFIG.meetup.durationHours > 12 ? CONFIG.meetup.startHour + CONFIG.meetup.durationHours - 12 : CONFIG.meetup.startHour + CONFIG.meetup.durationHours} PM</span>
+    </div>
+    <h3 class="topic-feature-title">${f.topic}</h3>
+    ${f.speaker ? `<p class="topic-speaker">With ${f.speaker}</p>` : ""}
+    <p class="topic-feature-summary">${f.summary || ""}</p>
+    <div class="topic-feature-body">${paragraphs(f.body)}</div>
+    <a class="btn btn-primary" href="${rsvpFor(f)}" target="_blank" rel="noopener">RSVP for this session</a>
+  `;
+  featured.hidden = false;
+
+  // ---- The rest ----
+  const rest = upcoming.slice(1);
+  list.innerHTML = rest
+    .map((e) => {
+      const dt = parseEventDate(e.date);
+      const shortDate = dt.toLocaleDateString("en-US", { month: "long", day: "numeric" });
+      const hasTopic = e.topic && !/^coming soon$/i.test(e.topic.trim());
+      return `
+        <article class="topic-card">
+          <p class="topic-card-date">${shortDate}</p>
+          <h4 class="topic-card-title">${e.topic}</h4>
+          <p class="topic-card-summary">${e.summary || ""}</p>
+          ${hasTopic ? `<a class="topic-card-link" href="${rsvpFor(e)}" target="_blank" rel="noopener">RSVP &rarr;</a>` : ""}
+        </article>`;
+    })
+    .join("");
+})();
 
 /* ------------------------------------------------------------------
    Calendar widget
@@ -130,16 +198,14 @@ function nextMeetupDate(from = new Date()) {
 
       if (day === meetup) {
         el.classList.add("meetup");
-        el.title = "Meetup day — click to RSVP";
+        const ev = eventForDay(viewYear, viewMonth, day);
+        el.title = ev && ev.topic ? `${ev.topic} — click for details` : "Meetup day — click to RSVP";
         el.tabIndex = 0;
-        el.addEventListener("click", () =>
-          document.getElementById("meetups").scrollIntoView({ behavior: "smooth" })
-        );
+        const go = () =>
+          document.getElementById("meetups").scrollIntoView({ behavior: "smooth" });
+        el.addEventListener("click", go);
         el.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            document.getElementById("meetups").scrollIntoView({ behavior: "smooth" });
-          }
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); }
         });
       }
       grid.appendChild(el);
@@ -174,8 +240,14 @@ function nextMeetupDate(from = new Date()) {
   const opts = { weekday: "long", month: "long", day: "numeric", year: "numeric" };
   const timeStr = dt.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
 
+  // If a topic is set for this date in events.js, show it on the card + in the .ics.
+  const ev = eventForDay(dt.getFullYear(), dt.getMonth(), dt.getDate());
+  const icsSummary = ev && ev.topic ? `${CONFIG.meetup.title}: ${ev.topic}` : CONFIG.meetup.title;
+
   dateEl.textContent = dt.toLocaleDateString("en-US", opts);
-  metaEl.textContent = `${timeStr} · ${CONFIG.meetup.location}`;
+  metaEl.textContent = ev && ev.topic
+    ? `${ev.topic} · ${timeStr}`
+    : `${timeStr} · ${CONFIG.meetup.location}`;
   card.hidden = false;
 
   function pad(n) { return String(n).padStart(2, "0"); }
@@ -198,7 +270,7 @@ function nextMeetupDate(from = new Date()) {
       "DTSTAMP:" + toICSDate(new Date()),
       "DTSTART:" + toICSDate(dt),
       "DTEND:" + toICSDate(end),
-      "SUMMARY:" + CONFIG.meetup.title,
+      "SUMMARY:" + icsSummary,
       "LOCATION:" + CONFIG.meetup.location,
       "DESCRIPTION:" + CONFIG.meetup.description,
       "END:VEVENT",
@@ -215,41 +287,6 @@ function nextMeetupDate(from = new Date()) {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
   });
-})();
-
-/* ------------------------------------------------------------------
-   Eventbrite RSVP widget (or fallback link)
-   ------------------------------------------------------------------ */
-(function eventbrite() {
-  const fallback = document.getElementById("eventbrite-fallback");
-  const link = document.getElementById("eventbrite-link");
-  if (link) link.href = CONFIG.eventbriteUrl;
-
-  if (!CONFIG.eventbriteEventId) return; // keep fallback link
-
-  // Load Eventbrite widget script, then mount inline checkout.
-  const script = document.createElement("script");
-  script.src = "https://www.eventbrite.com/static/widgets/eb_widgets.js";
-  script.async = true;
-  script.onload = () => {
-    if (!window.EBWidgets) return;
-    const container = document.getElementById("eventbrite-widget");
-    const mount = document.createElement("div");
-    mount.id = "eventbrite-widget-container";
-    container.innerHTML = "";
-    container.appendChild(mount);
-    window.EBWidgets.createWidget({
-      widgetType: "checkout",
-      eventId: CONFIG.eventbriteEventId,
-      iframeContainerId: "eventbrite-widget-container",
-      iframeContainerHeight: 560,
-    });
-  };
-  script.onerror = () => {
-    // network blocked — leave fallback link visible
-    if (fallback) fallback.style.display = "";
-  };
-  document.head.appendChild(script);
 })();
 
 /* ------------------------------------------------------------------

@@ -26,23 +26,42 @@ easy to edit, and quick to load.
 ## Quick setup (3 things to fill in)
 
 ### 1. Eventbrite RSVPs
-Open `js/main.js` and edit the `CONFIG` block at the top:
+Open `js/config.js` and edit the `eventbriteUrl`:
 
 ```js
-const CONFIG = {
+window.CONFIG = {
   eventbriteEventId: "1234567890123",                 // your event's numeric ID
-  eventbriteUrl: "https://www.eventbrite.com/o/your-org", // your public page
+  eventbriteUrl: "https://www.eventbrite.com/e/...",  // your public event page
   ...
 };
 ```
 
+- `eventbriteUrl` is where every **RSVP** button sends people (opens in a new tab).
 - The **event ID** is the number at the end of an Eventbrite event URL
-  (`.../e/my-event-tickets-1234567890123`).
-- With an event ID set, the RSVP section embeds Eventbrite's checkout inline.
-- Leave it empty and the section shows a button linking to `eventbriteUrl` instead.
+  (`.../e/my-event-tickets-1234567890123`); it's kept for reference.
+
+### 1b. Writing up each meetup's topic
+Upcoming meetups and their writeups live in **`js/events.js`** — this is the file
+you'll edit most. Add one entry per meetup:
+
+```js
+window.EVENTS = [
+  {
+    date: "2026-07-28",                       // YYYY-MM-DD
+    topic: "House Hacking 101",
+    summary: "One-sentence hook shown on cards.",
+    body: "Full writeup. Leave a blank line between paragraphs.",
+    speaker: "",                              // optional
+    eventbriteUrl: "",                        // optional, just for this event
+  },
+];
+```
+
+The nearest upcoming entry becomes the big featured card; the rest appear as a
+list and get labeled on the calendar. Past dates drop off automatically.
 
 ### 2. Meetup schedule (drives the calendar + Add-to-Calendar)
-Still in `CONFIG.meetup`:
+In `js/config.js`, under `CONFIG.meetup`:
 
 ```js
 meetup: {

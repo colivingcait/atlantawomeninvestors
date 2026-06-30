@@ -39,8 +39,8 @@
         <a href="#about">About</a>
         <a href="#story">Our Story</a>
         <a href="#hosts">Hosts</a>
-        <a href="#gallery">Gallery</a>
         <a href="#meetups">Meetups</a>
+        <a href="#gallery">Gallery</a>
         <a href="#calendar">Calendar</a>
         <a href="#sponsors">Sponsors</a>
         <a href="#subscribe" class="nav-cta">Join the List</a>
@@ -180,6 +180,31 @@
       </div>
     </section>
 
+    <!-- ============ UPCOMING MEETUPS (topics + RSVP) ============ -->
+    <section class="section" id="meetups">
+      <div class="container">
+        <p class="section-eyebrow">Upcoming meetups</p>
+        <h2 class="section-title">Join us at the next one</h2>
+        <p class="section-lede">
+          We meet the <strong>4th Tuesday of every month, 6&ndash;9 PM</strong> in
+          Atlanta (venue announced soon &mdash; RSVP to get the details). Each meetup
+          digs into one focused topic, so you leave with something you can use.
+        </p>
+
+        <!-- Featured (nearest) topic — rendered from js/events.js -->
+        <article class="topic-feature" id="topic-featured" hidden></article>
+
+        <!-- Later topics -->
+        <div class="topic-list" id="topic-list"></div>
+
+        <!-- Shown only if there are no upcoming topics in events.js -->
+        <p class="topic-empty muted" id="topic-empty" hidden>
+          Topics for upcoming meetups will be posted here soon &mdash;
+          <a href="#subscribe">join the email list</a> to be the first to know.
+        </p>
+      </div>
+    </section>
+
     <!-- ============ GALLERY ============ -->
     <section class="section section-alt" id="gallery">
       <div class="container">
@@ -214,38 +239,6 @@
             <img src="assets/img/meetup-5.jpg" alt="Atlanta Women Investors meetup"
                  loading="lazy" onerror="this.onerror=null;this.src='assets/img/gallery-placeholder.svg';" />
           </figure>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ MEETUPS / EVENTBRITE RSVP ============ -->
-    <section class="section" id="meetups">
-      <div class="container">
-        <p class="section-eyebrow">Upcoming meetups</p>
-        <h2 class="section-title">Reserve your spot</h2>
-        <p class="section-lede">
-          We meet the <strong>4th Tuesday of every month, 6&ndash;9 PM</strong> in
-          Atlanta (venue announced soon &mdash; RSVP to get the details). Reserve your
-          spot through Eventbrite below.
-        </p>
-
-        <!-- Eventbrite embedded checkout widget.
-             SETUP: replace EVENTBRITE_EVENT_ID in js/main.js with your event ID,
-             or paste your organizer/event embed code here. See README.md. -->
-        <div class="eventbrite-wrap">
-          <div id="eventbrite-widget" class="eventbrite-widget" aria-live="polite">
-            <!-- Fallback shown until Eventbrite is configured -->
-            <div class="eventbrite-fallback" id="eventbrite-fallback">
-              <h3>Next meetup tickets</h3>
-              <p>Our RSVP page opens in Eventbrite. Click below to see upcoming dates
-                and claim your free ticket.</p>
-              <a href="#" id="eventbrite-link" class="btn btn-primary" target="_blank" rel="noopener">
-                View &amp; RSVP on Eventbrite
-              </a>
-              <p class="muted small">Organizers: add your Eventbrite event ID in
-                <code>js/main.js</code> to embed RSVPs directly here.</p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -389,6 +382,8 @@
     </div>
   </footer>
 
+  <script src="js/config.js"></script>
+  <script src="js/events.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
