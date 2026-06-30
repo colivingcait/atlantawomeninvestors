@@ -87,23 +87,29 @@ message; if AJAX is blocked it falls back to a normal form submit.
 
 ---
 
-## Hosting on GitHub Pages (with your domain)
+## Hosting on Vercel (with your domain)
 
-This repo is ready for GitHub Pages:
+This repo deploys on Vercel with **zero build configuration** — it's a static
+site, so Vercel just serves the files. `vercel.json` adds caching and security
+headers.
 
-1. Push to GitHub.
-2. **Settings → Pages → Build and deployment → Source: GitHub Actions.**
-   (The included workflow `.github/workflows/deploy.yml` publishes the site.)
-3. The `CNAME` file points Pages at `atlantawomeninvestors.com`.
-4. At your domain registrar, add DNS records pointing to GitHub Pages:
-   - Four `A` records for the apex domain → `185.199.108.153`, `185.199.109.153`,
-     `185.199.110.153`, `185.199.111.153`
-   - (optional) a `CNAME` for `www` → `<your-username>.github.io`
-5. In **Settings → Pages**, set the custom domain to `atlantawomeninvestors.com`
-   and enable **Enforce HTTPS**.
+1. Go to <https://vercel.com/new> and sign in with GitHub.
+2. **Import** the `colivingcait/atlantawomeninvestors` repository.
+3. Framework preset: **Other** · Build command: *(leave empty)* · Output
+   directory: *(leave as the repo root / empty)*. Click **Deploy**.
+4. Add your domain: project **Settings → Domains → Add** →
+   `atlantawomeninvestors.com` (add `www.atlantawomeninvestors.com` too and let
+   Vercel redirect one to the other).
+5. At your domain registrar, point DNS at Vercel:
+   - Apex `atlantawomeninvestors.com`: an `A` record → `76.76.21.21`
+     *(use whatever value the Vercel dashboard shows you — it's authoritative)*
+   - `www`: a `CNAME` → `cname.vercel-dns.com`
+6. Vercel provisions HTTPS automatically once DNS resolves.
 
-Prefer Netlify or Vercel? Just point them at this repo — no build step, publish
-directory is the project root.
+After this, every push to the production branch redeploys automatically.
+
+> Deploying somewhere else? It's plain static files — Netlify or Cloudflare
+> Pages work the same way (no build step; publish directory is the repo root).
 
 ---
 
