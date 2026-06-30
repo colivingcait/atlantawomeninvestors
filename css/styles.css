@@ -106,7 +106,7 @@ a:hover { color: var(--forest-800); }
     linear-gradient(105deg, rgba(34,49,40,0.94) 0%, rgba(47,68,57,0.86) 42%, rgba(47,68,57,0.6) 78%, rgba(111,144,121,0.42) 100%),
     url("../assets/img/hero.jpg");
   background-size: cover;
-  background-position: center 35%;
+  background-position: center 42%;
 }
 .hero-inner { padding: 96px 24px 100px; max-width: 880px; }
 .eyebrow {
@@ -171,7 +171,7 @@ a:hover { color: var(--forest-800); }
 }
 .hosts-photo img {
   width: 100%; border-radius: var(--radius); box-shadow: var(--shadow);
-  aspect-ratio: 4 / 3; object-fit: cover; object-position: center 30%;
+  aspect-ratio: 4 / 5; object-fit: cover; object-position: center 18%;
 }
 .hosts-people { display: flex; flex-direction: column; gap: 1.2rem; }
 .host-row { padding-left: 1rem; border-left: 4px solid var(--sage-500); }
