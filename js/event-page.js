@@ -39,8 +39,9 @@
     CONFIG.meetup.startHour + CONFIG.meetup.durationHours
   )} PM`;
 
-  // wire all RSVP buttons
+  // wire all RSVP buttons + render the venue block
   document.querySelectorAll("[data-rsvp]").forEach((a) => (a.href = rsvpUrl));
+  if (window.renderVenue) window.renderVenue(document.getElementById("venue-body"));
 
   if (!ev) {
     if ($("ev-topic")) $("ev-topic").textContent = "Our next meetup";
@@ -104,7 +105,8 @@
         "UID:" + toICS(dt) + "@atlantawomeninvestors.com",
         "DTSTAMP:" + toICS(new Date()),
         "DTSTART:" + toICS(dt), "DTEND:" + toICS(end),
-        "SUMMARY:" + summary, "LOCATION:" + CONFIG.meetup.location,
+        "SUMMARY:" + summary,
+        "LOCATION:" + (window.venueLocation ? window.venueLocation() : CONFIG.meetup.location),
         "DESCRIPTION:" + (ev.summary || CONFIG.meetup.description),
         "END:VEVENT", "END:VCALENDAR",
       ].join("\r\n");

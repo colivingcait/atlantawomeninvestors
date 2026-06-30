@@ -169,14 +169,21 @@
           <!-- LEFT: overview of the next meetup (rendered from js/events.js) -->
           <article class="topic-feature meetup-feature" id="topic-featured" hidden></article>
 
-          <!-- RIGHT: RSVP + mark-your-calendar -->
-          <aside class="meetup-rsvp">
-            <p class="meetup-rsvp-label">Reserve your spot</p>
-            <p class="meetup-rsvp-when" id="rsvp-when">&mdash;</p>
-            <a href="#" data-rsvp target="_blank" rel="noopener" class="btn btn-primary">RSVP Free on Eventbrite</a>
-            <a href="#" id="add-to-calendar" class="btn btn-ghost">Add to Calendar</a>
-            <p class="meetup-rsvp-note">Free to attend &middot; All experience levels welcome</p>
-          </aside>
+          <!-- RIGHT: RSVP + mark-your-calendar + venue -->
+          <div class="meetup-side">
+            <aside class="meetup-rsvp">
+              <p class="meetup-rsvp-label">Reserve your spot</p>
+              <p class="meetup-rsvp-when" id="rsvp-when">&mdash;</p>
+              <a href="#" data-rsvp target="_blank" rel="noopener" class="btn btn-primary">RSVP Free on Eventbrite</a>
+              <a href="#" id="add-to-calendar" class="btn btn-ghost">Add to Calendar</a>
+              <p class="meetup-rsvp-note">Free to attend &middot; All experience levels welcome</p>
+            </aside>
+
+            <aside class="meetup-venue" id="venue-card">
+              <p class="meetup-venue-label">Where we meet</p>
+              <div id="venue-body"></div>
+            </aside>
+          </div>
         </div>
 
         <h3 class="meetup-more-title">More upcoming topics</h3>
@@ -239,7 +246,7 @@
             <span class="sponsor-name">Peachtree Planning</span>
             <span class="sponsor-tag">Financial planning &amp; wealth strategy</span>
           </a>
-          <a class="sponsor" href="#" target="_blank" rel="noopener">
+          <a class="sponsor" href="https://www.cvlending.com/meet-the-team/jasmine-brown/" target="_blank" rel="noopener">
             <span class="sponsor-name">Conventus</span>
             <span class="sponsor-tag">Real estate lending</span>
           </a>

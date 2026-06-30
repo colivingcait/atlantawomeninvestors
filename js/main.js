@@ -103,8 +103,9 @@ function eventForDay(year, month, day) {
   const timeRange = `${fmt(CONFIG.meetup.startHour)}–${fmt(CONFIG.meetup.startHour + CONFIG.meetup.durationHours)} PM`;
   const rsvpFor = (e) => (e && e.eventbriteUrl) || CONFIG.eventbriteUrl || "#";
 
-  // Always point RSVP buttons somewhere sensible.
+  // Always point RSVP buttons somewhere sensible, and render the venue block.
   document.querySelectorAll("[data-rsvp]").forEach((a) => (a.href = rsvpFor(upcoming[0])));
+  if (window.renderVenue) window.renderVenue(document.getElementById("venue-body"));
 
   if (!upcoming.length) {
     if (empty) empty.hidden = false;
@@ -153,7 +154,8 @@ function eventForDay(year, month, day) {
         "UID:" + toICS(fDate) + "@atlantawomeninvestors.com",
         "DTSTAMP:" + toICS(new Date()),
         "DTSTART:" + toICS(fDate), "DTEND:" + toICS(end),
-        "SUMMARY:" + summary, "LOCATION:" + CONFIG.meetup.location,
+        "SUMMARY:" + summary,
+        "LOCATION:" + (window.venueLocation ? window.venueLocation() : CONFIG.meetup.location),
         "DESCRIPTION:" + (f.summary || CONFIG.meetup.description),
         "END:VEVENT", "END:VCALENDAR",
       ].join("\r\n");
