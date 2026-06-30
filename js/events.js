@@ -31,9 +31,25 @@ window.EVENTS = [
     eventbriteUrl: "",
   },
 
-  // ---- Add future months below (examples — edit or replace) ----
+  // ---- Add future months below (edit the topic/summary/body when you plan one) ----
   {
     date: "2026-08-25",
+    topic: "Coming soon",
+    summary: "Topic to be announced — check back soon!",
+    body: "",
+    speaker: "",
+    eventbriteUrl: "",
+  },
+  {
+    date: "2026-09-22",
+    topic: "Coming soon",
+    summary: "Topic to be announced — check back soon!",
+    body: "",
+    speaker: "",
+    eventbriteUrl: "",
+  },
+  {
+    date: "2026-10-27",
     topic: "Coming soon",
     summary: "Topic to be announced — check back soon!",
     body: "",

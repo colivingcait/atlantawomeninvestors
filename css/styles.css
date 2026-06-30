@@ -160,9 +160,16 @@ a:hover { color: var(--forest-800); }
 
 /* ---------- Story ---------- */
 .story-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 3.5rem; align-items: center; }
-.story-media img { border-radius: var(--radius); box-shadow: var(--shadow); }
+.story-media img {
+  width: 100%; border-radius: var(--radius); box-shadow: var(--shadow);
+  aspect-ratio: 4 / 5; object-fit: cover; object-position: center 18%;
+}
 .story-copy p { color: var(--ink-soft); margin: 0 0 1.1rem; }
-.story-copy .btn { margin-top: 0.6rem; }
+.story-copy .btn { margin-top: 0.4rem; }
+.story-hosts { display: flex; flex-wrap: wrap; gap: 1.6rem; margin: 1.6rem 0; }
+.story-hosts .host-row { padding-left: 0.9rem; border-left: 4px solid var(--sage-500); }
+.story-hosts .host-row h3 { font-family: var(--font-display); font-size: 1.2rem; color: var(--forest-800); margin: 0 0 0.1rem; }
+.story-hosts .host-role { color: var(--teal-600); font-weight: 600; margin: 0; font-size: 0.92rem; }
 
 /* ---------- Hosts ---------- */
 .hosts-feature {
@@ -269,6 +276,29 @@ a:hover { color: var(--forest-800); }
 .topic-card-link:hover { color: var(--forest-800); }
 .topic-empty { max-width: 640px; }
 
+/* combined meetups: overview (left) + RSVP (right), topics below */
+.meetup-top {
+  display: grid; grid-template-columns: 1.6fr 1fr; gap: 1.6rem;
+  align-items: start; margin-bottom: 2.6rem;
+}
+.meetup-feature { margin-bottom: 0; max-width: none; }
+.meetup-rsvp {
+  background: var(--forest-800); color: var(--cream); border-radius: var(--radius);
+  padding: 1.8rem; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 0.7rem;
+}
+.meetup-rsvp-label { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.72rem; color: var(--sage-300); font-weight: 600; margin: 0; }
+.meetup-rsvp-when { font-family: var(--font-display); font-size: 1.2rem; line-height: 1.2; margin: 0 0 0.5rem; color: var(--cream); }
+.meetup-rsvp .btn { width: 100%; }
+.meetup-rsvp .btn-primary { background: var(--sage-500); color: var(--forest-900); }
+.meetup-rsvp .btn-primary:hover { background: var(--sage-300); color: var(--forest-900); }
+.meetup-rsvp .btn-ghost { color: var(--cream); border-color: rgba(245,242,234,0.5); }
+.meetup-rsvp .btn-ghost:hover { background: var(--cream); color: var(--forest-800); border-color: var(--cream); }
+.meetup-rsvp-note { font-size: 0.82rem; color: rgba(245,242,234,0.75); margin: 0.3rem 0 0; }
+.meetup-more-title { font-family: var(--font-display); font-size: 1.3rem; color: var(--forest-800); margin: 0 0 1.2rem; }
+
+@media (max-width: 860px) {
+  .meetup-top { grid-template-columns: 1fr; }
+}
 @media (max-width: 760px) {
   .topic-list { grid-template-columns: 1fr; }
 }

@@ -39,10 +39,8 @@
       <nav class="site-nav" aria-label="Primary">
         <a href="#about">About</a>
         <a href="#story">Our Story</a>
-        <a href="#hosts">Hosts</a>
         <a href="#meetups">Meetups</a>
         <a href="#gallery">Gallery</a>
-        <a href="#calendar">Calendar</a>
         <a href="#sponsors">Sponsors</a>
         <a href="#subscribe" class="nav-cta">Join the List</a>
       </nav>
@@ -113,15 +111,15 @@
       </div>
     </section>
 
-    <!-- ============ OUR STORY ============ -->
+    <!-- ============ OUR STORY / YOUR HOSTS ============ -->
     <section class="section section-alt" id="story">
       <div class="container story-grid">
         <div class="story-media">
-          <img src="assets/img/meetup-1.jpg" alt="Caitlyn and Jasmine working on a deal together"
+          <img src="assets/img/hosts.jpg" alt="Caitlyn Verdugo and Jasmine Brown, your hosts"
                onerror="this.onerror=null;this.src='assets/img/story.svg';" />
         </div>
         <div class="story-copy">
-          <p class="section-eyebrow">Our story</p>
+          <p class="section-eyebrow">Our story &middot; Your hosts</p>
           <h2 class="section-title">We started out as strangers at a meetup.</h2>
           <p>
             Back in 2024, the two of us met at a women's real estate investing meetup
@@ -139,27 +137,8 @@
             That's the whole point of this room. <strong>Your future partner could be
             sitting at this table, too.</strong>
           </p>
-          <a href="#subscribe" class="btn btn-primary">Become part of the story</a>
-        </div>
-      </div>
-    </section>
 
-    <!-- ============ HOSTS ============ -->
-    <section class="section" id="hosts">
-      <div class="container">
-        <p class="section-eyebrow">Co-hosted by</p>
-        <h2 class="section-title">Meet your hosts</h2>
-        <p class="section-lede">
-          Two Atlanta investors who know the local market inside and out &mdash; and
-          who love helping other women get started and level up.
-        </p>
-
-        <div class="hosts-feature">
-          <div class="hosts-photo">
-            <img src="assets/img/hosts.jpg" alt="Caitlyn Verdugo and Jasmine Brown co-hosting"
-                 onerror="this.onerror=null;this.src='assets/img/gallery-placeholder.svg';" />
-          </div>
-          <div class="hosts-people">
+          <div class="story-hosts">
             <article class="host-row">
               <h3>Caitlyn Verdugo</h3>
               <p class="host-role">Investor &amp; Realtor</p>
@@ -168,14 +147,15 @@
               <h3>Jasmine Brown</h3>
               <p class="host-role">Investor &amp; Lender</p>
             </article>
-            <p class="hosts-people-note">Co-founders &amp; investing partners &mdash; building a portfolio and a community, together.</p>
           </div>
+
+          <a href="#subscribe" class="btn btn-primary">Become part of the story</a>
         </div>
       </div>
     </section>
 
-    <!-- ============ UPCOMING MEETUPS (topics + RSVP) ============ -->
-    <section class="section" id="meetups">
+    <!-- ============ UPCOMING MEETUPS (overview + RSVP + topics) ============ -->
+    <section class="section section-alt" id="meetups">
       <div class="container">
         <p class="section-eyebrow">Upcoming meetups</p>
         <h2 class="section-title">Join us at the next one</h2>
@@ -185,10 +165,21 @@
           digs into one focused topic, so you leave with something you can use.
         </p>
 
-        <!-- Featured (nearest) topic — rendered from js/events.js -->
-        <article class="topic-feature" id="topic-featured" hidden></article>
+        <div class="meetup-top">
+          <!-- LEFT: overview of the next meetup (rendered from js/events.js) -->
+          <article class="topic-feature meetup-feature" id="topic-featured" hidden></article>
 
-        <!-- Later topics -->
+          <!-- RIGHT: RSVP + mark-your-calendar -->
+          <aside class="meetup-rsvp">
+            <p class="meetup-rsvp-label">Reserve your spot</p>
+            <p class="meetup-rsvp-when" id="rsvp-when">&mdash;</p>
+            <a href="#" data-rsvp target="_blank" rel="noopener" class="btn btn-primary">RSVP Free on Eventbrite</a>
+            <a href="#" id="add-to-calendar" class="btn btn-ghost">Add to Calendar</a>
+            <p class="meetup-rsvp-note">Free to attend &middot; All experience levels welcome</p>
+          </aside>
+        </div>
+
+        <h3 class="meetup-more-title">More upcoming topics</h3>
         <div class="topic-list" id="topic-list"></div>
 
         <!-- Shown only if there are no upcoming topics in events.js -->
@@ -214,7 +205,7 @@
              you add a photo. Add or remove tiles freely. -->
         <div class="gallery-grid">
           <figure class="gallery-item">
-            <img src="assets/img/meetup-2.jpg" alt="Members celebrating a closing"
+            <img src="assets/img/meetup-group.jpg" alt="The group at the Women's Coliving Summit"
                  loading="lazy" onerror="this.onerror=null;this.src='assets/img/gallery-placeholder.svg';" />
           </figure>
           <figure class="gallery-item">
@@ -230,48 +221,11 @@
     </section>
 
     <!-- ============ CALENDAR ============ -->
-    <section class="section section-alt" id="calendar">
-      <div class="container">
-        <p class="section-eyebrow">Mark your calendar</p>
-        <h2 class="section-title">When we meet</h2>
-        <p class="section-lede">
-          We gather on the same day each month. Browse the calendar, then add a date
-          straight to your own calendar.
-        </p>
-
-        <div class="calendar" id="calendar-widget">
-          <div class="calendar-header">
-            <button class="cal-nav" id="cal-prev" aria-label="Previous month">&larr;</button>
-            <h3 id="cal-title" aria-live="polite">Month Year</h3>
-            <button class="cal-nav" id="cal-next" aria-label="Next month">&rarr;</button>
-          </div>
-          <div class="calendar-grid" id="cal-grid" role="grid">
-            <!-- rendered by js/main.js -->
-          </div>
-          <div class="calendar-legend">
-            <span class="legend-dot"></span> Meetup day
-          </div>
-        </div>
-
-        <div class="next-event-card" id="next-event-card" hidden>
-          <div>
-            <p class="next-event-label">Next meetup</p>
-            <p class="next-event-date" id="next-event-date">&mdash;</p>
-            <p class="next-event-meta" id="next-event-meta">&mdash;</p>
-          </div>
-          <div class="next-event-actions">
-            <a href="#" id="add-to-calendar" class="btn btn-primary btn-sm">Add to Calendar</a>
-            <a href="#meetups" class="btn btn-ghost btn-sm">RSVP</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- ============ SPONSORS ============ -->
     <section class="section" id="sponsors">
       <div class="container">
         <p class="section-eyebrow">Our sponsors</p>
-        <h2 class="section-title">Powered by partners who believe in us</h2>
+        <h2 class="section-title">Powered by partners who believe in the power of connection</h2>
         <p class="section-lede">
           Our meetups are made possible by local businesses that support women
           investors &mdash; lenders, agents, title companies, and more. We're grateful
@@ -350,7 +304,7 @@
         <a href="#about">About</a>
         <a href="#story">Our Story</a>
         <a href="#meetups">Meetups</a>
-        <a href="#calendar">Calendar</a>
+        <a href="#gallery">Gallery</a>
         <a href="#sponsors">Sponsors</a>
       </div>
 

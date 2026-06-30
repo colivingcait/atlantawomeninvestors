@@ -89,21 +89,29 @@ function eventForDay(year, month, day) {
   });
 }
 
-(function topics() {
+(function meetups() {
   const featured = document.getElementById("topic-featured");
   const list = document.getElementById("topic-list");
   const empty = document.getElementById("topic-empty");
+  const whenEl = document.getElementById("rsvp-when");
+  const icsBtn = document.getElementById("add-to-calendar");
   if (!featured || !list) return;
 
   const upcoming = upcomingEvents();
   const dateOpts = { weekday: "long", month: "long", day: "numeric", year: "numeric" };
+  const fmt = (h) => (h > 12 ? h - 12 : h);
+  const timeRange = `${fmt(CONFIG.meetup.startHour)}–${fmt(CONFIG.meetup.startHour + CONFIG.meetup.durationHours)} PM`;
+  const rsvpFor = (e) => (e && e.eventbriteUrl) || CONFIG.eventbriteUrl || "#";
+
+  // Always point RSVP buttons somewhere sensible.
+  document.querySelectorAll("[data-rsvp]").forEach((a) => (a.href = rsvpFor(upcoming[0])));
 
   if (!upcoming.length) {
     if (empty) empty.hidden = false;
+    if (whenEl) whenEl.textContent = "Date to be announced";
     return;
   }
 
-  const rsvpFor = (e) => e.eventbriteUrl || CONFIG.eventbriteUrl;
   const paragraphs = (body) =>
     String(body || "")
       .split(/\n{2,}/)
@@ -112,24 +120,53 @@ function eventForDay(year, month, day) {
       .map((p) => `<p>${p.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</p>`) // basic escaping
       .join("");
 
-  // ---- Featured (nearest) ----
+  // ---- LEFT: overview of the next meetup ----
   const f = upcoming[0];
   const fDate = parseEventDate(f.date);
   featured.innerHTML = `
     <div class="topic-feature-head">
       <span class="topic-badge">Next meetup</span>
-      <span class="topic-date">${fDate.toLocaleDateString("en-US", dateOpts)} · ${CONFIG.meetup.startHour > 12 ? CONFIG.meetup.startHour - 12 : CONFIG.meetup.startHour}–${CONFIG.meetup.startHour + CONFIG.meetup.durationHours > 12 ? CONFIG.meetup.startHour + CONFIG.meetup.durationHours - 12 : CONFIG.meetup.startHour + CONFIG.meetup.durationHours} PM</span>
+      <span class="topic-date">${fDate.toLocaleDateString("en-US", dateOpts)} · ${timeRange}</span>
     </div>
     <h3 class="topic-feature-title">${f.topic}</h3>
     ${f.speaker ? `<p class="topic-speaker">With ${f.speaker}</p>` : ""}
     <p class="topic-feature-summary">${f.summary || ""}</p>
     <div class="topic-feature-body">${paragraphs(f.body)}</div>
-    <a class="btn btn-primary" href="${rsvpFor(f)}" target="_blank" rel="noopener">RSVP for this session</a>
   `;
   featured.hidden = false;
 
-  // ---- The rest ----
-  const rest = upcoming.slice(1);
+  // ---- RIGHT: RSVP / mark-your-calendar ----
+  if (whenEl) whenEl.textContent = `${fDate.toLocaleDateString("en-US", dateOpts)} · ${timeRange}`;
+  if (icsBtn) {
+    icsBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const pad = (n) => String(n).padStart(2, "0");
+      const toICS = (d) =>
+        d.getUTCFullYear() + pad(d.getUTCMonth() + 1) + pad(d.getUTCDate()) +
+        "T" + pad(d.getUTCHours()) + pad(d.getUTCMinutes()) + "00Z";
+      const end = new Date(fDate.getTime() + CONFIG.meetup.durationHours * 3600 * 1000);
+      const coming = !f.topic || /^coming soon$/i.test(f.topic.trim());
+      const summary = coming ? CONFIG.meetup.title : `${CONFIG.meetup.title}: ${f.topic}`;
+      const ics = [
+        "BEGIN:VCALENDAR", "VERSION:2.0",
+        "PRODID:-//Atlanta Women Investors//Meetup//EN", "BEGIN:VEVENT",
+        "UID:" + toICS(fDate) + "@atlantawomeninvestors.com",
+        "DTSTAMP:" + toICS(new Date()),
+        "DTSTART:" + toICS(fDate), "DTEND:" + toICS(end),
+        "SUMMARY:" + summary, "LOCATION:" + CONFIG.meetup.location,
+        "DESCRIPTION:" + (f.summary || CONFIG.meetup.description),
+        "END:VEVENT", "END:VCALENDAR",
+      ].join("\r\n");
+      const url = URL.createObjectURL(new Blob([ics], { type: "text/calendar;charset=utf-8" }));
+      const a = document.createElement("a");
+      a.href = url; a.download = "awi-meetup.ics";
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+  }
+
+  // ---- BELOW: the next few meetups + topics ----
+  const rest = upcoming.slice(1, 5);
   list.innerHTML = rest
     .map((e) => {
       const dt = parseEventDate(e.date);
