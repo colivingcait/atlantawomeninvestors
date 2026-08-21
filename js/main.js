@@ -337,28 +337,22 @@ function eventForDay(year, month, day) {
   if (!form || !note) return;
 
   form.addEventListener("submit", async (e) => {
-    const action = form.getAttribute("action") || "";
-
-    // If still on the placeholder action, don't fire a broken request.
-    if (action.includes("YOUR_FORM_ID") || action.trim() === "") {
-      e.preventDefault();
-      note.classList.add("error");
-      note.textContent =
-        "Email list isn't connected yet. Organizers: set the form action in index.html.";
-      return;
-    }
-
-    // Progressive enhancement: try AJAX, fall back to normal submit.
     e.preventDefault();
-    const data = new FormData(form);
+
+    // Honeypot: real visitors never fill this in.
+    if (form.querySelector('[name="_gotcha"]')?.value) return;
+
+    const name = form.querySelector('[name="name"]')?.value.trim() || "";
+    const email = form.querySelector('[name="email"]')?.value.trim() || "";
+
     note.classList.remove("error");
     note.textContent = "Subscribing…";
 
     try {
-      const res = await fetch(action, {
+      const res = await fetch(window.CONFIG.crmWebhookUrl, {
         method: "POST",
-        body: data,
-        headers: { Accept: "application/json" },
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ site: "atlanta_women_investors", form: "subscribe", email, firstName: name }),
       });
       if (res.ok) {
         form.reset();

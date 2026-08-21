@@ -22,6 +22,10 @@ window.CONFIG = {
     description: "Monthly meetup for women building wealth through real estate. Co-hosted by Caitlyn Verdugo & Jasmine Brown. RSVP on Eventbrite.",
   },
 
+  // Caitlyn's CRM — the subscribe form POSTs straight here (see
+  // js/main.js). Same shared endpoint used by her other sites.
+  crmWebhookUrl: "https://crm.callcaitlyn.com/api/webhooks/site-form",
+
   // VENUE — fill this in once decided, and the location block + map appear
   // automatically (and feed the Add-to-Calendar file). Leave name empty for
   // a "venue announced soon" message.

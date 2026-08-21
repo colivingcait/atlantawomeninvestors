@@ -270,11 +270,9 @@
           opportunities. No spam &mdash; just value.
         </p>
 
-        <!-- SETUP: point the form `action` at your email provider (Mailchimp, ConvertKit,
-             Buttondown, Formspree, etc.). See README.md. The JS provides graceful
-             success/error handling. -->
-        <form class="subscribe-form" id="subscribe-form"
-              action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <!-- Posts straight to Caitlyn's CRM (see js/main.js) - no third-party
+             form provider needed. -->
+        <form class="subscribe-form" id="subscribe-form">
           <div class="field-row">
             <label class="visually-hidden" for="sub-name">First name</label>
             <input type="text" id="sub-name" name="name" placeholder="First name" autocomplete="given-name" />
