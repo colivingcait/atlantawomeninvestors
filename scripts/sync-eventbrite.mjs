@@ -25,6 +25,10 @@ const API = "https://www.eventbriteapi.com/v3";
 const TOKEN = process.env.EVENTBRITE_TOKEN;
 const MOCK = process.env.EVENTBRITE_MOCK;
 
+// Hide events whose title matches (e.g. cancelled / not part of the meetup series).
+const EXCLUDE_TITLE = /coliving summit/i;
+const keep = (items) => items.filter((e) => e.topic && !EXCLUDE_TITLE.test(e.topic));
+
 async function api(pathname, params = {}) {
   const url = new URL(API + pathname);
   Object.entries(params).forEach(([k, v]) => v != null && url.searchParams.set(k, v));
@@ -132,9 +136,9 @@ async function main() {
     past = (await fetchAll(orgId, "past", "start_desc")).map(toItem);
   }
 
-  // Collapse multi-day events (e.g. a 2-day summit) into one entry.
-  upcoming = mergeMultiDay(upcoming);
-  past = mergeMultiDay(past).sort((a, b) => b.date.localeCompare(a.date));
+  // Drop excluded (e.g. cancelled) events, then collapse multi-day events.
+  upcoming = mergeMultiDay(keep(upcoming));
+  past = mergeMultiDay(keep(past)).sort((a, b) => b.date.localeCompare(a.date));
 
   // Preserve youtubeId / photos on past entries (match by id).
   const prevPast = loadWindowArray(PAST_FILE, "PAST_MEETUPS");
