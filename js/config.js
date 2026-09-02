@@ -3,11 +3,10 @@
    Used by both the homepage and the /event landing page.
    ========================================================= */
 window.CONFIG = {
-  // Eventbrite: paste your event ID (the number at the end of an event URL)
-  // to embed an inline RSVP/checkout widget. Leave empty to show a link.
-  eventbriteEventId: "1990612059255", // Women Real Estate Investors Meetup
-  // Your public Eventbrite organizer or event page (used for the fallback link).
-  eventbriteUrl: "https://www.eventbrite.com/e/women-real-estate-investors-meetup-tickets-1990612059255",
+  // Eventbrite: every "RSVP" button points here. Using the collection page so
+  // visitors see all upcoming monthly meetups and can pick a date.
+  eventbriteEventId: "1990612059255", // (kept for reference; embed not used)
+  eventbriteUrl: "https://www.eventbrite.com/cc/women-real-estate-investors-atl-monthly-meetups-4833857",
 
   // Meetup recurrence used to build the calendar + "add to calendar".
   // weekday: 0=Sun ... 6=Sat. nth: 1=first, 2=second, 3=third, 4=fourth, -1=last.
