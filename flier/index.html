@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meetup Flier | Atlanta Women Investors</title>
+  <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root { --forest:#2f4439; --sage:#94b09c; --cream:#f5f2ea; }
+    * { box-sizing: border-box; margin: 0; }
+    body { background:#20302a; font-family:"Inter",system-ui,sans-serif; display:grid; place-items:center; min-height:100vh; padding:24px; }
+    .note { color:rgba(245,242,234,0.7); font-size:14px; text-align:center; margin-bottom:16px; max-width:1080px; }
+    .flier {
+      width:1080px; height:1350px; position:relative; overflow:hidden; color:var(--cream);
+      background-image:
+        linear-gradient(180deg, rgba(34,49,40,0.86) 0%, rgba(34,49,40,0.55) 42%, rgba(34,49,40,0.94) 100%),
+        url('/assets/img/room-speaker.jpg');
+      background-size: cover; background-position: center;
+      padding:72px; display:flex; flex-direction:column;
+    }
+    .flier::before { /* fallback tint if the photo is missing */ content:""; position:absolute; inset:0; background:#2f4439; z-index:-1; }
+    .f-top { display:flex; align-items:center; gap:16px; }
+    .f-top img { width:64px; height:64px; border-radius:14px; }
+    .f-top strong { font-family:"Fraunces",serif; font-size:30px; font-weight:600; display:block; line-height:1.1; }
+    .f-top small { font-size:15px; letter-spacing:0.18em; text-transform:uppercase; color:rgba(245,242,234,0.75); }
+    .f-mid { margin-top:auto; }
+    .f-eyebrow { font-size:24px; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:var(--sage); margin-bottom:22px; }
+    .f-head { font-family:"Fraunces",serif; font-size:104px; line-height:1.02; font-weight:600; letter-spacing:-0.01em; }
+    .f-sub { font-size:34px; color:rgba(245,242,234,0.9); margin-top:26px; max-width:820px; }
+    .f-facts { display:grid; grid-template-columns:repeat(3,1fr); gap:36px; margin-top:56px; }
+    .f-fact { border-top:4px solid var(--sage); padding-top:18px; }
+    .f-fact .l { font-size:20px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(245,242,234,0.7); margin-bottom:10px; }
+    .f-fact .v { font-family:"Fraunces",serif; font-size:36px; line-height:1.1; }
+    .f-fact .d { font-size:26px; color:rgba(245,242,234,0.85); margin-top:6px; }
+    .f-foot { display:flex; align-items:center; justify-content:space-between; gap:24px; margin-top:64px; }
+    .f-foot .cta { font-family:"Fraunces",serif; font-size:34px; }
+    .f-foot .dom { font-size:24px; color:rgba(245,242,234,0.8); margin-top:6px; }
+    .f-hosts { display:flex; }
+    .f-hosts img { width:96px; height:96px; border-radius:50%; object-fit:cover; border:3px solid rgba(245,242,234,0.6); }
+    .f-hosts img:last-child { margin-left:-22px; }
+  </style>
+</head>
+<body>
+  <p class="note">Screenshot / export this 1080×1350 image for Instagram or texting. The date updates from your next Eventbrite meetup automatically.</p>
+  <div class="flier">
+    <div class="f-top">
+      <img src="/assets/img/logo.svg" alt="" />
+      <span><strong>Atlanta Women Investors</strong><small>Real Estate Meetup</small></span>
+    </div>
+    <div class="f-mid">
+      <p class="f-eyebrow">You're invited &middot; Free</p>
+      <h1 class="f-head">Women Real Estate Investors Meetup</h1>
+      <p class="f-sub">Build wealth and community with women investors in Atlanta.</p>
+      <div class="f-facts">
+        <div class="f-fact"><div class="l">When</div><div class="v" id="f-when">4th Tuesday</div><div class="d" id="f-time">6:30–9:30 PM</div></div>
+        <div class="f-fact"><div class="l">Where</div><div class="v">New Realm Brewing</div><div class="d">Atlanta, GA</div></div>
+        <div class="f-fact"><div class="l">Hosted by</div><div class="v">Caitlyn &amp; Jasmine</div><div class="d">Investors &amp; hosts</div></div>
+      </div>
+      <div class="f-foot">
+        <div>
+          <div class="cta">RSVP free on Eventbrite</div>
+          <div class="dom">atlantawomeninvestors.com</div>
+        </div>
+        <div class="f-hosts">
+          <img src="/assets/img/host-caitlyn.jpg" alt="Caitlyn Verdugo" onerror="this.style.display='none'" />
+          <img src="/assets/img/host-jasmine.jpg" alt="Jasmine Brown" onerror="this.style.display='none'" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/config.js"></script>
+  <script src="/js/events.js"></script>
+  <script>
+    (function () {
+      var E = (window.EVENTS || []).filter(function (e) { return e && e.date; })
+        .sort(function (a, b) { return a.date.localeCompare(b.date); });
+      var today = new Date().toISOString().slice(0, 10);
+      var next = E.find(function (e) { return e.date >= today; }) || E[0];
+      if (next) {
+        var d = new Date(next.date + "T12:00:00");
+        document.getElementById("f-when").textContent = d.toLocaleDateString("en-US", { month: "long", day: "numeric" });
+      }
+      if (window.meetupTimeRange) document.getElementById("f-time").textContent = window.meetupTimeRange();
+    })();
+  </script>
+</body>
+</html>
