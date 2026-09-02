@@ -34,6 +34,20 @@ window.CONFIG = {
   },
 };
 
+/* Build shareable recap slugs (e.g. "aug-2026") for a list of past meetups.
+   Deterministic given the list order; disambiguates same-month collisions. */
+window.buildRecaps = function (list) {
+  var months = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];
+  var seen = {};
+  return (list || []).filter(function (m) { return m && m.date; }).map(function (m) {
+    var d = new Date(m.date + "T12:00:00");
+    var base = months[d.getMonth()] + "-" + d.getFullYear();
+    seen[base] = (seen[base] || 0) + 1;
+    var slug = seen[base] > 1 ? base + "-" + seen[base] : base;
+    return { item: m, slug: slug };
+  });
+};
+
 /* Meetup time range, e.g. "6:30–9:30 PM" (12-hour, minutes-aware). */
 window.meetupTimeRange = function () {
   var m = window.CONFIG.meetup;

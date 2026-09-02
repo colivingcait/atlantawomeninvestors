@@ -4,32 +4,35 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Past Meetups | Atlanta Women Investors</title>
-  <meta name="description" content="Watch recordings and see photos from past Atlanta Women Investors real estate meetups." />
-
+  <meta name="description" content="Watch recordings and read recaps from past Atlanta Women Investors real estate meetups." />
   <meta property="og:title" content="Past Meetups — Atlanta Women Investors" />
-  <meta property="og:description" content="Catch up on recordings and photos from past meetups." />
+  <meta property="og:description" content="Recordings and recaps from past meetups — each with its own shareable page." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://atlantawomeninvestors.com/past" />
   <meta property="og:image" content="https://atlantawomeninvestors.com/assets/img/og.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
-
-  <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a href="../" class="brand" aria-label="Atlanta Women Investors home">
-        <img src="../assets/img/logo.svg" alt="" class="brand-mark" width="40" height="40" />
-        <span class="brand-text">
-          <strong>Atlanta Women Investors</strong>
-          <small>Real Estate Meetup</small>
-        </span>
+      <a href="/" class="brand" aria-label="Atlanta Women Investors home">
+        <img src="/assets/img/logo.svg" alt="" class="brand-mark" width="40" height="40" />
+        <span class="brand-text"><strong>Atlanta Women Investors</strong><small>Real Estate Meetup</small></span>
       </a>
-      <a href="../#meetups" class="btn btn-primary btn-sm">See Upcoming</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/#about">About</a>
+        <a href="/#story">Our Story</a>
+        <a href="/#meetups">Meetups</a>
+        <a href="/past/">Past Meetups</a>
+        <a href="/#gallery">Gallery</a>
+        <a href="/#sponsors">Sponsors</a>
+        <a href="/#subscribe" class="nav-cta">Join the List</a>
+      </nav>
     </div>
   </header>
 
@@ -39,25 +42,28 @@
         <p class="section-eyebrow">Catch up</p>
         <h1 class="section-title">Past meetups</h1>
         <p class="section-lede">
-          Missed one, or want a refresher? Watch the recordings, read the recaps, and
-          see photos from previous sessions. Then come join us live for the next one.
+          Every meetup has its own recap page &mdash; recording, photos, and takeaways &mdash;
+          made to watch and share. Missed one? Start here.
         </p>
 
-        <div class="past-list" id="past-list"></div>
+        <article class="past-featured" id="past-featured" hidden></article>
+
+        <h2 style="font-family:var(--font-display);font-size:1.4rem;color:var(--forest-800);margin:0 0 1.2rem">Everything before that</h2>
+        <div class="past-grid" id="past-grid"></div>
 
         <p class="past-empty" id="past-empty" hidden>
-          Recordings and recaps from our meetups will live here soon.
-          <a href="../#meetups">Come to the next meetup</a> to catch it live &mdash; or
-          <a href="../#subscribe">join the email list</a> so you never miss one.
+          Recaps from our meetups will live here soon.
+          <a href="/#meetups">Come to the next meetup</a> to catch it live, or
+          <a href="/#subscribe">join the email list</a>.
         </p>
       </div>
     </section>
 
     <section class="section section-cta">
-      <div class="container subscribe-inner">
+      <div class="container subscribe-inner" style="max-width:720px;text-align:center;margin:0 auto">
         <h2 class="section-title light">Don't miss the next one</h2>
         <p class="section-lede light">Reserve your spot at our next monthly meetup — it's free.</p>
-        <a href="../#meetups" class="btn btn-primary">See Upcoming Meetups</a>
+        <a href="/#meetups" class="btn btn-primary">See Upcoming Meetups</a>
       </div>
     </section>
   </main>
@@ -65,11 +71,14 @@
   <footer class="site-footer">
     <div class="container footer-bottom">
       <p>&copy; <span id="year"></span> Atlanta Women Investors. All rights reserved.</p>
-      <p class="muted small">Made with 💛 in Atlanta.</p>
+      <a href="/" class="muted small">&larr; Back to the site</a>
     </div>
   </footer>
 
-  <script src="../js/past.js"></script>
-  <script src="../js/past-page.js"></script>
+  <script src="/js/config.js"></script>
+  <script src="/js/events.js"></script>
+  <script src="/js/past.js"></script>
+  <script src="/js/past-page.js"></script>
+  <script src="/js/site.js"></script>
 </body>
 </html>
