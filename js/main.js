@@ -100,7 +100,9 @@ function eventForDay(year, month, day) {
   const upcoming = upcomingEvents();
   const dateOpts = { weekday: "long", month: "long", day: "numeric", year: "numeric" };
   const fmt = (h) => (h > 12 ? h - 12 : h);
-  const timeRange = `${fmt(CONFIG.meetup.startHour)}–${fmt(CONFIG.meetup.startHour + CONFIG.meetup.durationHours)} PM`;
+  const timeRange = window.meetupTimeRange
+    ? window.meetupTimeRange()
+    : `${fmt(CONFIG.meetup.startHour)}–${fmt(CONFIG.meetup.startHour + CONFIG.meetup.durationHours)} PM`;
   const rsvpFor = (e) => (e && e.eventbriteUrl) || CONFIG.eventbriteUrl || "#";
 
   // Always point RSVP buttons somewhere sensible, and render the venue block.
@@ -169,6 +171,8 @@ function eventForDay(year, month, day) {
 
   // ---- BELOW: the next few meetups + topics ----
   const rest = upcoming.slice(1, 5);
+  const moreTitle = document.querySelector(".meetup-more-title");
+  if (moreTitle) moreTitle.hidden = rest.length === 0;
   list.innerHTML = rest
     .map((e) => {
       const dt = parseEventDate(e.date);

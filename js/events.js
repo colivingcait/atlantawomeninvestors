@@ -19,7 +19,7 @@
    ========================================================= */
 window.EVENTS = [
   {
-    date: "2026-07-28",
+    date: "2026-09-22",
     topic: "House Hacking 101: Let Your Home Pay Your Mortgage",
     summary:
       "How to buy a property, live in part of it, and rent out the rest to slash (or erase) your housing costs.",
@@ -31,29 +31,13 @@ window.EVENTS = [
     eventbriteUrl: "",
   },
 
-  // ---- Add future months below (edit the topic/summary/body when you plan one) ----
-  {
-    date: "2026-08-25",
-    topic: "Coming soon",
-    summary: "Topic to be announced — check back soon!",
-    body: "",
-    speaker: "",
-    eventbriteUrl: "",
-  },
-  {
-    date: "2026-09-22",
-    topic: "Coming soon",
-    summary: "Topic to be announced — check back soon!",
-    body: "",
-    speaker: "",
-    eventbriteUrl: "",
-  },
-  {
-    date: "2026-10-27",
-    topic: "Coming soon",
-    summary: "Topic to be announced — check back soon!",
-    body: "",
-    speaker: "",
-    eventbriteUrl: "",
-  },
+  // ---- Add future months here as you plan them, e.g.:
+  // {
+  //   date: "2026-08-25",
+  //   topic: "BRRRR Deep Dive",
+  //   summary: "Buy, rehab, rent, refinance, repeat — how the strategy really works.",
+  //   body: "Full writeup...\n\nSecond paragraph...",
+  //   speaker: "",
+  //   eventbriteUrl: "",
+  // },
 ];

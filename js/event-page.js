@@ -35,9 +35,9 @@
 
   const $ = (id) => document.getElementById(id);
   const fmtTime = (h) => (h > 12 ? h - 12 : h);
-  const timeRange = `${fmtTime(CONFIG.meetup.startHour)}–${fmtTime(
-    CONFIG.meetup.startHour + CONFIG.meetup.durationHours
-  )} PM`;
+  const timeRange = window.meetupTimeRange
+    ? window.meetupTimeRange()
+    : `${fmtTime(CONFIG.meetup.startHour)}–${fmtTime(CONFIG.meetup.startHour + CONFIG.meetup.durationHours)} PM`;
 
   // wire all RSVP buttons + render the venue block
   document.querySelectorAll("[data-rsvp]").forEach((a) => (a.href = rsvpUrl));

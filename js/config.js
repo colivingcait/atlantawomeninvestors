@@ -13,11 +13,11 @@ window.CONFIG = {
   meetup: {
     weekday: 2,          // Tuesday
     nth: 4,              // 4th Tuesday of each month
-    startHour: 18,       // 6:00 PM
-    startMinute: 0,
-    durationHours: 3,    // 6–9 PM
+    startHour: 18,       // 6:30 PM
+    startMinute: 30,
+    durationHours: 3,    // 6:30–9:30 PM
     title: "Women Real Estate Investors Meetup",
-    location: "Atlanta, GA (venue TBA)",
+    location: "New Realm Brewing, 550 Somerset Terrace NE, Atlanta, GA 30306",
     description: "Monthly meetup for women building wealth through real estate. Co-hosted by Caitlyn Verdugo & Jasmine Brown. RSVP on Eventbrite.",
   },
 
@@ -25,23 +25,23 @@ window.CONFIG = {
   // js/main.js). Same shared endpoint used by her other sites.
   crmWebhookUrl: "https://crm.callcaitlyn.com/api/webhooks/site-form",
 
-  // VENUE — fill this in once decided, and the location block + map appear
-  // automatically (and feed the Add-to-Calendar file). Leave name empty for
-  // a "venue announced soon" message.
-  //
-  // Option A — uncomment to use The Lost Druid (Decatur):
-  //   name: "The Lost Druid", area: "Decatur",
-  //   address: "2606 E College Ave, Decatur, GA 30030",
-  // Option B — uncomment to use New Realm Brewing (Midtown):
-  //   name: "New Realm Brewing", area: "Midtown, Atlanta",
-  //   address: "550 Somerset Terrace NE #101, Atlanta, GA 30306",
-  // (Double-check the exact address before going live.)
+  // VENUE — drives the "Where we meet" block, the map, and the .ics location.
   venue: {
-    name: "",        // e.g. "The Lost Druid"
-    area: "",        // e.g. "Decatur"
-    address: "",     // full address — powers the map + directions link
+    name: "New Realm Brewing",
+    area: "Atlanta",
+    address: "550 Somerset Terrace NE, Atlanta, GA 30306",
     note: "",        // optional extra line (parking, which room, etc.)
   },
+};
+
+/* Meetup time range, e.g. "6:30–9:30 PM" (12-hour, minutes-aware). */
+window.meetupTimeRange = function () {
+  var m = window.CONFIG.meetup;
+  var sm = m.startMinute || 0;
+  var eh = m.startHour + m.durationHours;
+  var h12 = function (h) { return h > 12 ? h - 12 : h; };
+  var mm = function (x) { return String(x).padStart(2, "0"); };
+  return h12(m.startHour) + ":" + mm(sm) + "–" + h12(eh) + ":" + mm(sm) + " PM";
 };
 
 /* Venue location string for the .ics / calendar (falls back to meetup.location). */
