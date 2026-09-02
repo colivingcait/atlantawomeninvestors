@@ -115,12 +115,15 @@ function eventForDay(year, month, day) {
     return;
   }
 
-  const paragraphs = (body) =>
+  const esc = (s) => String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;");
+  // Body paragraphs, minus any that just repeat the summary (Eventbrite often does).
+  const paragraphs = (body, exclude) =>
     String(body || "")
       .split(/\n{2,}/)
       .map((p) => p.trim())
       .filter(Boolean)
-      .map((p) => `<p>${p.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</p>`) // basic escaping
+      .filter((p) => p !== String(exclude || "").trim())
+      .map((p) => `<p>${esc(p)}</p>`)
       .join("");
 
   // ---- LEFT: overview of the next meetup ----
@@ -131,10 +134,10 @@ function eventForDay(year, month, day) {
       <span class="topic-badge">Next meetup</span>
       <span class="topic-date">${fDate.toLocaleDateString("en-US", dateOpts)} · ${timeRange}</span>
     </div>
-    <h3 class="topic-feature-title">${f.topic}</h3>
-    ${f.speaker ? `<p class="topic-speaker">With ${f.speaker}</p>` : ""}
-    <p class="topic-feature-summary">${f.summary || ""}</p>
-    <div class="topic-feature-body">${paragraphs(f.body)}</div>
+    <h3 class="topic-feature-title">${esc(f.topic)}</h3>
+    ${f.speaker ? `<p class="topic-speaker">With ${esc(f.speaker)}</p>` : ""}
+    <p class="topic-feature-summary">${esc(f.summary)}</p>
+    <div class="topic-feature-body">${paragraphs(f.body, f.summary)}</div>
   `;
   featured.hidden = false;
 

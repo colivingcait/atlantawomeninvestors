@@ -58,12 +58,14 @@ window.renderVenue = function (bodyEl) {
   if (v.name) {
     var q = encodeURIComponent(v.address || v.name + " " + (v.area || "Atlanta"));
     bodyEl.innerHTML =
-      '<h3 class="venue-name">' + v.name + "</h3>" +
-      (v.area ? '<p class="venue-area">' + v.area + "</p>" : "") +
-      (v.address ? '<p class="venue-address">' + v.address + "</p>" : "") +
-      (v.note ? '<p class="venue-note">' + v.note + "</p>" : "") +
-      '<a class="venue-link" href="https://www.google.com/maps/search/?api=1&query=' + q +
-      '" target="_blank" rel="noopener">Get directions &rarr;</a>' +
+      '<div class="venue-info">' +
+        '<h3 class="venue-name">' + v.name + "</h3>" +
+        (v.area ? '<p class="venue-area">' + v.area + "</p>" : "") +
+        (v.address ? '<p class="venue-address">' + v.address + "</p>" : "") +
+        (v.note ? '<p class="venue-note">' + v.note + "</p>" : "") +
+        '<a class="venue-link" href="https://www.google.com/maps/search/?api=1&query=' + q +
+        '" target="_blank" rel="noopener">Get directions &rarr;</a>' +
+      "</div>" +
       '<iframe class="venue-map" loading="lazy" title="Map to ' + v.name + '" ' +
       'referrerpolicy="no-referrer-when-downgrade" ' +
       'src="https://maps.google.com/maps?q=' + q + '&z=15&output=embed"></iframe>';

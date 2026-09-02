@@ -264,8 +264,9 @@ a:hover { color: var(--forest-800); }
 .topic-feature-body p { color: var(--ink-soft); margin: 0 0 1rem; }
 .topic-feature .btn { margin-top: 0.4rem; }
 
-.topic-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; max-width: 820px; }
+.topic-list { display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center; }
 .topic-card {
+  flex: 1 1 240px; max-width: 300px;
   background: var(--white); border: 1px solid var(--cream-200); border-radius: var(--radius);
   padding: 1.4rem; box-shadow: var(--shadow-sm);
 }
@@ -338,8 +339,15 @@ a:hover { color: var(--forest-800); }
 .venue-tba { color: var(--ink-soft); margin: 0; }
 .event-venue { max-width: 520px; margin-top: 1.6rem; }
 
+/* full-width venue strip on the homepage: info + map side by side */
+.meetup-venue--wide { margin-bottom: 2.6rem; }
+.meetup-venue--wide .venue-body { display: grid; grid-template-columns: 1fr 1.4fr; gap: 1.4rem; align-items: stretch; }
+.meetup-venue--wide .venue-map { height: 100%; min-height: 220px; margin-top: 0; }
+
 @media (max-width: 860px) {
   .meetup-top { grid-template-columns: 1fr; }
+  .meetup-venue--wide .venue-body { grid-template-columns: 1fr; }
+  .meetup-venue--wide .venue-map { min-height: 200px; }
 }
 @media (max-width: 760px) {
   .topic-list { grid-template-columns: 1fr; }

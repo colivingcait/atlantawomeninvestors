@@ -176,22 +176,21 @@
           <!-- LEFT: overview of the next meetup (rendered from js/events.js) -->
           <article class="topic-feature meetup-feature" id="topic-featured" hidden></article>
 
-          <!-- RIGHT: RSVP + mark-your-calendar + venue -->
-          <div class="meetup-side">
-            <aside class="meetup-rsvp">
-              <p class="meetup-rsvp-label">Reserve your spot</p>
-              <p class="meetup-rsvp-when" id="rsvp-when">&mdash;</p>
-              <a href="#" data-rsvp target="_blank" rel="noopener" class="btn btn-primary">RSVP Free on Eventbrite</a>
-              <a href="#" id="add-to-calendar" class="btn btn-ghost">Add to Calendar</a>
-              <p class="meetup-rsvp-note">Free to attend &middot; All experience levels welcome</p>
-            </aside>
-
-            <aside class="meetup-venue" id="venue-card">
-              <p class="meetup-venue-label">Where we meet</p>
-              <div id="venue-body"></div>
-            </aside>
-          </div>
+          <!-- RIGHT: RSVP + mark-your-calendar -->
+          <aside class="meetup-rsvp">
+            <p class="meetup-rsvp-label">Reserve your spot</p>
+            <p class="meetup-rsvp-when" id="rsvp-when">&mdash;</p>
+            <a href="#" data-rsvp target="_blank" rel="noopener" class="btn btn-primary">RSVP Free on Eventbrite</a>
+            <a href="#" id="add-to-calendar" class="btn btn-ghost">Add to Calendar</a>
+            <p class="meetup-rsvp-note">Free to attend &middot; All experience levels welcome</p>
+          </aside>
         </div>
+
+        <!-- Venue: full-width strip (info + map) -->
+        <aside class="meetup-venue meetup-venue--wide" id="venue-card">
+          <p class="meetup-venue-label">Where we meet</p>
+          <div id="venue-body" class="venue-body"></div>
+        </aside>
 
         <h3 class="meetup-more-title">More upcoming topics</h3>
         <div class="topic-list" id="topic-list"></div>
