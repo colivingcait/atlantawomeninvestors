@@ -66,6 +66,23 @@ function toItem(e) {
   };
 }
 
+/* --- collapse a multi-day event (same title, consecutive days) into one
+       entry with a dateEnd range; leaves separate monthly meetups alone --- */
+function mergeMultiDay(items) {
+  const asc = items.slice().sort((a, b) => a.date.localeCompare(b.date));
+  const out = [];
+  const norm = (s) => String(s || "").trim().toLowerCase();
+  for (const it of asc) {
+    const prev = out[out.length - 1];
+    if (prev && norm(prev.topic) === norm(it.topic)) {
+      const gapDays = (new Date(it.date) - new Date(prev.dateEnd || prev.date)) / 86400000;
+      if (gapDays >= 0 && gapDays <= 2) { prev.dateEnd = it.date; continue; }
+    }
+    out.push({ ...it });
+  }
+  return out;
+}
+
 /* --- read an existing "window.X = [...]" data file --- */
 function loadWindowArray(file, varName) {
   if (!fs.existsSync(file)) return [];
@@ -114,6 +131,10 @@ async function main() {
     upcoming = (await fetchAll(orgId, "current_future", "start_asc")).map(toItem);
     past = (await fetchAll(orgId, "past", "start_desc")).map(toItem);
   }
+
+  // Collapse multi-day events (e.g. a 2-day summit) into one entry.
+  upcoming = mergeMultiDay(upcoming);
+  past = mergeMultiDay(past).sort((a, b) => b.date.localeCompare(a.date));
 
   // Preserve youtubeId / photos on past entries (match by id).
   const prevPast = loadWindowArray(PAST_FILE, "PAST_MEETUPS");

@@ -13,20 +13,12 @@ window.EVENTS = [
   {
     "id": "1986578238990",
     "date": "2026-10-16",
+    "dateEnd": "2026-10-17",
     "topic": "The Women's Coliving Summit | Atlanta 2026",
     "summary": "OCTOBER 16-17, 2026  |  ATLANTA, GA  |   Join us for a two-day experience bringing together women building wealth through coliving.",
     "body": "OCTOBER 16-17, 2026  |  ATLANTA, GA  |   Join us for a two-day experience bringing together women building wealth through coliving.",
     "speaker": "",
     "eventbriteUrl": "https://www.eventbrite.com/e/the-womens-coliving-summit-atlanta-2026-tickets-1986578238990"
-  },
-  {
-    "id": "1986578239993",
-    "date": "2026-10-17",
-    "topic": "The Women's Coliving Summit | Atlanta 2026",
-    "summary": "OCTOBER 16-17, 2026  |  ATLANTA, GA  |   Join us for a two-day experience bringing together women building wealth through coliving.",
-    "body": "OCTOBER 16-17, 2026  |  ATLANTA, GA  |   Join us for a two-day experience bringing together women building wealth through coliving.",
-    "speaker": "",
-    "eventbriteUrl": "https://www.eventbrite.com/e/the-womens-coliving-summit-atlanta-2026-tickets-1986578239993"
   },
   {
     "id": "1998516329139",

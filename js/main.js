@@ -179,7 +179,12 @@ function eventForDay(year, month, day) {
   list.innerHTML = rest
     .map((e) => {
       const dt = parseEventDate(e.date);
-      const shortDate = dt.toLocaleDateString("en-US", { month: "long", day: "numeric" });
+      let shortDate = dt.toLocaleDateString("en-US", { month: "long", day: "numeric" });
+      if (e.dateEnd) {
+        const de = parseEventDate(e.dateEnd);
+        const sameMonth = de.getMonth() === dt.getMonth();
+        shortDate += "–" + de.toLocaleDateString("en-US", sameMonth ? { day: "numeric" } : { month: "long", day: "numeric" });
+      }
       const hasTopic = e.topic && !/^coming soon$/i.test(e.topic.trim());
       return `
         <article class="topic-card">
