@@ -107,6 +107,7 @@ function eventForDay(year, month, day) {
 
   // Always point RSVP buttons somewhere sensible, and render the venue block.
   document.querySelectorAll("[data-rsvp]").forEach((a) => (a.href = rsvpFor(upcoming[0])));
+  document.querySelectorAll("[data-collection]").forEach((a) => (a.href = CONFIG.eventbriteUrl || "#"));
   if (window.renderVenue) window.renderVenue(document.getElementById("venue-body"));
 
   if (!upcoming.length) {
@@ -138,6 +139,11 @@ function eventForDay(year, month, day) {
     ${f.speaker ? `<p class="topic-speaker">With ${esc(f.speaker)}</p>` : ""}
     <p class="topic-feature-summary">${esc(f.summary)}</p>
     <div class="topic-feature-body">${paragraphs(f.body, f.summary)}</div>
+    <div class="feature-facts">
+      <div><span class="feature-fact-label">Where</span><span class="feature-fact-val">${esc((CONFIG.venue && CONFIG.venue.name) || "Atlanta")}</span></div>
+      <div><span class="feature-fact-label">Who</span><span class="feature-fact-val">All experience levels</span></div>
+      <div><span class="feature-fact-label">Cost</span><span class="feature-fact-val">Free to attend</span></div>
+    </div>
   `;
   featured.hidden = false;
 
@@ -185,13 +191,15 @@ function eventForDay(year, month, day) {
         const sameMonth = de.getMonth() === dt.getMonth();
         shortDate += "–" + de.toLocaleDateString("en-US", sameMonth ? { day: "numeric" } : { month: "long", day: "numeric" });
       }
-      const hasTopic = e.topic && !/^coming soon$/i.test(e.topic.trim());
       return `
         <article class="topic-card">
-          <p class="topic-card-date">${shortDate}</p>
-          <h4 class="topic-card-title">${e.topic}</h4>
-          <p class="topic-card-summary">${e.summary || ""}</p>
-          ${hasTopic ? `<a class="topic-card-link" href="${rsvpFor(e)}" target="_blank" rel="noopener">RSVP &rarr;</a>` : ""}
+          <div class="topic-card-top">
+            <p class="topic-card-date">${shortDate}</p>
+            <span class="topic-type">Free</span>
+          </div>
+          <h4 class="topic-card-title">${esc(e.topic)}</h4>
+          <p class="topic-card-summary">${esc(e.summary)}</p>
+          <a class="topic-card-link" href="${rsvpFor(e)}" target="_blank" rel="noopener">RSVP &rarr;</a>
         </article>`;
     })
     .join("");

@@ -504,3 +504,85 @@ a:hover { color: var(--forest-800); }
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
 }
+
+/* =========================================================
+   v3 additions
+   ========================================================= */
+
+/* Hero refinements: full-width container + balanced heading */
+.hero-inner { max-width: var(--maxw); }
+.hero h1 { max-width: 760px; text-wrap: balance; }
+.lede { max-width: 620px; }
+.lede-short { display: none; }
+@media (max-width: 1000px) {
+  .lede-full { display: none; }
+  .lede-short { display: block; font-size: 1.05rem; }
+}
+
+/* About: icon tiles + equalized titles */
+.card-ico {
+  width: 44px; height: 44px; border-radius: 12px; margin-bottom: 0.9rem;
+  background: rgba(148,176,156,0.24); display: grid; place-items: center; color: var(--teal-600);
+}
+.card h3 { min-height: 63px; }
+@media (max-width: 680px) { .card h3 { min-height: 0; } }
+
+/* Our Story: host contact cards */
+.story-hosts { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.story-host-card {
+  display: block; background: var(--cream); border: 1px solid var(--cream-200);
+  border-radius: 14px; padding: 1.1rem; border-left: 1px solid var(--cream-200);
+}
+.story-host-head { display: flex; gap: 0.8rem; align-items: center; margin-bottom: 0.5rem; }
+.story-host-head img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; }
+.story-host-card h3 { font-family: var(--font-display); font-size: 1.05rem; color: var(--forest-800); margin: 0 0 0.1rem; min-height: 0; }
+.story-host-role { color: var(--teal-600); font-weight: 600; font-size: 0.82rem; margin: 0; }
+.story-host-links { display: flex; flex-direction: column; gap: 0.15rem; }
+.story-host-links a { font-size: 0.85rem; }
+.story-host-links .tel { color: var(--ink-soft); font-weight: 500; }
+@media (max-width: 700px) { .story-hosts { grid-template-columns: 1fr; } }
+
+/* Run of show: single card with divided cells */
+.ros-card {
+  display: grid; grid-template-columns: repeat(3, 1fr); background: var(--white);
+  border: 1px solid var(--cream-200); border-radius: var(--radius); overflow: hidden;
+  box-shadow: var(--shadow-sm); margin: 0 0 2rem;
+}
+.ros-cell { padding: 1.15rem 1.5rem; border-right: 1px solid var(--cream-200); }
+.ros-cell:last-child { border-right: 0; }
+.ros-time { display: block; font-family: var(--font-display); color: var(--forest-800); font-size: 1.05rem; margin-bottom: 0.15rem; }
+.ros-what { color: var(--ink-soft); font-size: 0.95rem; }
+@media (max-width: 1000px) {
+  .ros-card { grid-template-columns: 1fr; }
+  .ros-cell { border-right: 0; border-bottom: 1px solid var(--cream-200); }
+  .ros-cell:last-child { border-bottom: 0; }
+}
+
+/* Feature card facts row (rendered inside #topic-featured) */
+.meetup-top { align-items: stretch; }
+.meetup-feature { display: flex; flex-direction: column; }
+.feature-facts {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+  margin-top: auto; padding-top: 1.4rem; border-top: 1px solid var(--cream-200);
+}
+.feature-fact-label { display: block; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.72rem; color: var(--ink-soft); font-weight: 600; margin-bottom: 0.2rem; }
+.feature-fact-val { font-family: var(--font-display); font-size: 1rem; color: var(--forest-800); }
+.meetup-rsvp { justify-content: center; }
+
+/* Upcoming cards: even 3-col grid */
+.meetup-more-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin: 0 0 1.2rem; }
+.meetup-more-head h3 { margin: 0; }
+.meetup-more-link { font-weight: 600; font-size: 0.9rem; color: var(--teal-600); }
+.topic-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; align-items: stretch; justify-content: initial; }
+.topic-card { flex: initial; max-width: none; display: flex; flex-direction: column; }
+.topic-card-top { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.4rem; }
+.topic-card-date { margin: 0; }
+.topic-type {
+  font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
+  color: var(--forest-800); background: rgba(148,176,156,0.25); padding: 0.2rem 0.55rem; border-radius: 999px; white-space: nowrap;
+}
+.topic-card-title { min-height: 2.9rem; }
+.topic-card-summary { text-wrap: pretty; }
+.topic-card-link { margin-top: auto; }
+@media (max-width: 1000px) { .topic-list { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 680px) { .topic-list { grid-template-columns: 1fr; } }
