@@ -144,3 +144,36 @@ python3 -m http.server 8000
 ---
 
 Made with 💛 in Atlanta.
+
+---
+
+## Automatic Eventbrite sync (daily)
+
+The site treats **Eventbrite as the source of truth** for meetups. A GitHub
+Action (`.github/workflows/eventbrite-sync.yml`) runs every morning and:
+
+- writes upcoming events into `js/events.js` (drives the homepage "next meetup"),
+- moves finished events into `js/past.js` (the **Past Meetups** page),
+  **preserving** any `youtubeId` / `photos` you added to a past entry.
+
+You just manage events in Eventbrite — the site follows automatically (Vercel
+redeploys on each push).
+
+### One-time setup
+1. Get an Eventbrite **private token**: Eventbrite → **Account Settings →
+   Developer → API Keys / Private Token** (copy the token).
+2. In GitHub: **Settings → Secrets and variables → Actions → New repository
+   secret**, name it `EVENTBRITE_TOKEN`, paste the token.
+   *(Optional: add `EVENTBRITE_ORG_ID` if your account has more than one
+   organization; otherwise the first one is used.)*
+3. Trigger it once: **Actions → “Sync meetups from Eventbrite” → Run workflow**.
+
+> Scheduled Actions run from the repo's **default branch**, so make sure the
+> branch you deploy from is the default branch in GitHub settings.
+
+### Adding a recording to a past meetup
+Edit `js/past.js`, find the meetup by its title, and set `youtubeId` (the part
+of the YouTube URL after `watch?v=`) and/or `photos`. The daily sync keeps
+those — it only refreshes the title/date/summary from Eventbrite.
+
+You can also run the sync locally: `EVENTBRITE_TOKEN=xxxx node scripts/sync-eventbrite.mjs`

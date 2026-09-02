@@ -316,6 +316,7 @@ a:hover { color: var(--forest-800); }
 .past-summary { color: var(--ink-soft); margin: 0; }
 .past-photos { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.9rem; }
 .past-photos img { width: 74px; height: 74px; object-fit: cover; border-radius: 8px; }
+.past-card--text { grid-template-columns: 1fr; }
 .past-empty { max-width: 560px; color: var(--ink-soft); }
 
 @media (max-width: 760px) {

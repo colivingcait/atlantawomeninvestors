@@ -1,27 +1,26 @@
 /* =========================================================
    Atlanta Women Investors — PAST MEETUPS
    ---------------------------------------------------------
-   Add each past meetup here and it shows up on the /past page
-   with its recording, description, and photos. Newest is
-   sorted to the top automatically.
+   The date / topic / summary fields here are kept in sync
+   from Eventbrite by the daily GitHub Action
+   (.github/workflows/eventbrite-sync.yml). You can freely
+   ADD a recording or photos to any entry — the sync matches
+   entries by "id" and preserves your youtubeId + photos.
 
-   Fields:
-     date       "YYYY-MM-DD" (required)
-     topic      the session title
-     summary    a short description / recap
-     youtubeId  the video ID from a YouTube URL (the part after
-                "watch?v=" or "youtu.be/"). Leave "" if no video.
-     photos     array of image paths, e.g.
-                ["assets/img/past-2026-06-1.jpg", "..."]
-                (save photos into assets/img/ with any names)
+   To add a recording/photos to a past meetup, set:
+     youtubeId  the video ID from a YouTube URL (after watch?v=)
+     photos     ["assets/img/past-...jpg", ...]  (save into assets/img/)
    ========================================================= */
 window.PAST_MEETUPS = [
-  // Example — copy this block for each past meetup and fill it in:
-  // {
-  //   date: "2026-06-24",
-  //   topic: "Getting Started: Your First Rental",
-  //   summary: "We broke down how to analyze your first deal and line up financing.",
-  //   youtubeId: "dQw4w9WgXcQ",
-  //   photos: ["assets/img/meetup-3.jpg", "assets/img/meetup-4.jpg"],
-  // },
+  {
+    id: "1990612059255",
+    date: "2026-07-28",
+    topic: "House Hacking 101: Let Your Home Pay Your Mortgage",
+    summary:
+      "We broke down how to buy a property, live in part of it, and rent out the rest to slash (or erase) your housing costs — duplexes, spare rooms, ADUs, and the low-down-payment loans that make it possible.",
+    eventbriteUrl:
+      "https://www.eventbrite.com/e/women-real-estate-investors-meetup-tickets-1990612059255",
+    youtubeId: "", // add the recording link when you have it
+    photos: [],    // add photos anytime
+  },
 ];

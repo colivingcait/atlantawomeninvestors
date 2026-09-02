@@ -35,12 +35,13 @@
         ? `<div class="past-photos">${gallery.map((p) => `<img src="${p}" alt="" loading="lazy">`).join("")}</div>`
         : "";
       return `
-        <article class="past-card">
+        <article class="past-card${media ? "" : " past-card--text"}">
           ${media}
           <div class="past-info">
             <p class="past-date">${fmt(m.date)}</p>
             <h3 class="past-topic">${esc(m.topic) || "Meetup"}</h3>
             ${m.summary ? `<p class="past-summary">${esc(m.summary)}</p>` : ""}
+            ${m.eventbriteUrl ? `<a class="topic-card-link" href="${m.eventbriteUrl}" target="_blank" rel="noopener">Event details &rarr;</a>` : ""}
             ${thumbs}
           </div>
         </article>`;
