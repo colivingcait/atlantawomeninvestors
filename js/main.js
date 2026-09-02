@@ -390,6 +390,95 @@ function eventForDay(year, month, day) {
 })();
 
 /* ------------------------------------------------------------------
+   Generic CRM forms (text-me-back, referral, speaker, sponsor inquiry)
+   ------------------------------------------------------------------ */
+(function crmForms() {
+  document.querySelectorAll("form[data-form]").forEach((form) => {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const note = form.querySelector("[data-note]");
+      const val = (n) => (form.querySelector(`[name="${n}"]`)?.value || "").trim();
+      const setNote = (msg, err) => { if (note) { note.classList.toggle("error", !!err); note.textContent = msg; } };
+      const url = CONFIG.crmWebhookUrl;
+      if (!url) { setNote("Form isn't connected yet.", true); return; }
+      setNote("Sending…");
+      const kind = form.dataset.form;
+      const message = kind === "friend_referral"
+        ? `Friend: ${val("friendName")} <${val("friendEmail")}>`
+        : (val("message") || val("topic") || val("question"));
+      try {
+        const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            site: "atlanta_women_investors",
+            form: kind,
+            firstName: val("name") || val("firstName"),
+            email: val("email"),
+            phone: val("phone"),
+            company: val("company"),
+            message,
+          }),
+        });
+        if (!res.ok) throw new Error("bad response");
+        form.reset();
+        setNote(form.dataset.success || "Thanks — we'll be in touch!");
+      } catch (err) {
+        setNote("Something went wrong — email hello@atlantawomeninvestors.com and we'll add you.", true);
+      }
+    });
+  });
+})();
+
+/* ------------------------------------------------------------------
+   Gallery carousel arrows
+   ------------------------------------------------------------------ */
+(function carousel() {
+  document.querySelectorAll("[data-carousel]").forEach((root) => {
+    const rail = root.querySelector(".gallery-rail");
+    if (!rail) return;
+    const step = () => Math.max(280, rail.clientWidth * 0.7);
+    root.querySelector("[data-car-prev]")?.addEventListener("click", () => rail.scrollBy({ left: -step(), behavior: "smooth" }));
+    root.querySelector("[data-car-next]")?.addEventListener("click", () => rail.scrollBy({ left: step(), behavior: "smooth" }));
+  });
+  // arrows live in the header (sibling), so also wire by section
+  document.querySelectorAll("#gallery").forEach((sec) => {
+    const rail = sec.querySelector(".gallery-rail");
+    if (!rail) return;
+    const step = () => Math.max(280, rail.clientWidth * 0.7);
+    sec.querySelector("[data-car-prev]")?.addEventListener("click", () => rail.scrollBy({ left: -step(), behavior: "smooth" }));
+    sec.querySelector("[data-car-next]")?.addEventListener("click", () => rail.scrollBy({ left: step(), behavior: "smooth" }));
+  });
+})();
+
+/* ------------------------------------------------------------------
+   Sponsor inquiry fold + copy-link buttons
+   ------------------------------------------------------------------ */
+(function sponsorFold() {
+  const card = document.querySelector("[data-sponsor-fold]");
+  if (!card) return;
+  const openBtn = card.querySelector("[data-sponsor-open]");
+  const form = card.querySelector(".sponsor-form");
+  const cancel = card.querySelector("[data-sponsor-cancel]");
+  const openRow = openBtn ? openBtn.closest(".sponsor-cta-actions") : null;
+  openBtn?.addEventListener("click", () => { if (openRow) openRow.hidden = true; if (form) form.hidden = false; });
+  cancel?.addEventListener("click", () => { if (form) form.hidden = true; if (openRow) openRow.hidden = false; });
+})();
+
+(function copyLinks() {
+  document.querySelectorAll("[data-copy]").forEach((btn) => {
+    const orig = btn.textContent;
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(btn.dataset.copy || CONFIG.eventbriteUrl || location.href);
+        btn.textContent = "Link copied";
+        setTimeout(() => (btn.textContent = orig), 2000);
+      } catch (_) { btn.textContent = "Copy failed"; setTimeout(() => (btn.textContent = orig), 2000); }
+    });
+  });
+})();
+
+/* ------------------------------------------------------------------
    Footer year
    ------------------------------------------------------------------ */
 (function year() {

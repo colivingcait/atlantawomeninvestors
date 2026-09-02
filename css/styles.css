@@ -586,3 +586,78 @@ a:hover { color: var(--forest-800); }
 .topic-card-link { margin-top: auto; }
 @media (max-width: 1000px) { .topic-list { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 680px) { .topic-list { grid-template-columns: 1fr; } }
+
+/* ---------- v3 new sections ---------- */
+
+/* shared form fields */
+.field { width: 100%; padding: 0.8rem 1rem; border-radius: 12px; border: 1px solid #cdd8cf; font-size: 0.95rem; font-family: var(--font-body); background: var(--white); color: var(--ink); }
+.field:focus { outline: none; border-color: var(--sage-500); }
+.form-note { min-height: 1.3rem; margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--forest-800); }
+.form-note.error { color: #b3512f; }
+
+/* Gallery carousel */
+.gallery-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.gallery-arrows { display: flex; gap: 0.6rem; }
+.gal-arrow { width: 44px; height: 44px; border-radius: 50%; border: 1px solid #cdd8cf; background: var(--cream); color: var(--forest-800); font-size: 1.1rem; cursor: pointer; display: grid; place-items: center; transition: .15s; }
+.gal-arrow:hover { background: var(--forest-800); color: var(--cream); }
+.gallery-rail { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding-bottom: 0.8rem; margin-top: 1.8rem; }
+.gallery-rail::-webkit-scrollbar { height: 8px; }
+.gallery-rail::-webkit-scrollbar-thumb { background: #cdd8cf; border-radius: 8px; }
+.gal-slide { flex: 0 0 clamp(260px, 32%, 380px); scroll-snap-align: start; border-radius: var(--radius); overflow: hidden; aspect-ratio: 4/3; background: var(--cream-200); }
+.gal-slide.is-video { flex: 0 0 clamp(300px, 42%, 520px); aspect-ratio: 16/9; }
+.gal-slide img, .gal-slide iframe { width: 100%; height: 100%; object-fit: cover; border: 0; display: block; }
+.gallery-caption { margin: 1rem 0 0; font-size: 0.92rem; color: var(--ink-soft); }
+
+/* Member wins */
+.wins-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+.win-card { display: flex; flex-direction: column; background: var(--white); border: 1px solid var(--cream-200); border-radius: var(--radius); padding: 1.6rem; box-shadow: var(--shadow-sm); margin: 0; }
+.slot { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.82rem; color: var(--ink-soft); background: repeating-linear-gradient(135deg,#f5f2ea 0 10px,#eef2ec 10px 20px); border: 1px dashed #cdd8cf; border-radius: 12px; padding: 1rem; }
+.win-by { margin-top: auto; padding-top: 1rem; font-weight: 600; color: var(--forest-800); font-size: 0.9rem; }
+
+/* First time? FAQ */
+.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+.faq-form-card { background: var(--cream); border: 1px solid var(--cream-200); border-radius: var(--radius); padding: 1.4rem; }
+.faq-form-card h3 { font-family: var(--font-display); color: var(--forest-800); margin: 0 0 0.2rem; }
+.faq-form-card p { color: var(--ink-soft); margin: 0 0 1rem; font-size: 0.95rem; }
+.form-row { display: flex; flex-direction: column; gap: 0.6rem; }
+.faq-dl { margin: 0; }
+.faq-dl > div { border-bottom: 1px solid var(--cream-200); padding-bottom: 1.2rem; margin-bottom: 1.2rem; }
+.faq-dl > div:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+.faq-dl dt { font-family: var(--font-display); font-size: 1.1rem; color: var(--forest-800); margin-bottom: 0.3rem; }
+.faq-dl dd { margin: 0; color: var(--ink-soft); font-size: 0.96rem; }
+
+/* Get involved */
+.involve-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; align-items: stretch; }
+.involve-card { background: var(--white); border: 1px solid var(--cream-200); border-radius: var(--radius); padding: 1.8rem; }
+.involve-card h3 { font-family: var(--font-display); font-size: 1.4rem; color: var(--forest-800); margin: 0 0 0.4rem; }
+.involve-card p { color: var(--ink-soft); margin: 0 0 1.1rem; }
+.involve-card .field { background: var(--cream); }
+.involve-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; margin-top: 0.2rem; }
+.involve-foot { margin: 1rem 0 0; font-size: 0.9rem; }
+.involve-card--dark { background: var(--forest-800); color: var(--cream); }
+.involve-card--dark h3 { color: var(--cream); }
+.involve-card--dark p { color: rgba(245,242,234,0.85); }
+.involve-card--dark .field { background: rgba(245,242,234,0.12); border-color: rgba(245,242,234,0.35); color: var(--cream); }
+.involve-card--dark .field::placeholder { color: rgba(245,242,234,0.6); }
+.involve-card--dark .btn-primary { background: var(--sage-500); color: var(--forest-900); }
+.involve-card--dark .form-note { color: var(--sage-300); }
+
+/* Sponsors v3 */
+.sponsor-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-bottom: 3rem; max-width: 1000px; }
+.sponsor { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; text-align: center; background: var(--cream); border: 1px solid var(--cream-200); border-radius: var(--radius); padding: 2.2rem 1.6rem; color: var(--ink-soft); transition: .18s; min-height: 150px; }
+.sponsor:hover { transform: translateY(-4px); box-shadow: var(--shadow-sm); color: var(--forest-800); }
+.sponsor-slot { border: 1px dashed #cdd8cf; background: repeating-linear-gradient(135deg,#f5f2ea 0 10px,#eef2ec 10px 20px); color: var(--ink-soft); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.82rem; }
+.sponsor-slot strong { font-family: var(--font-body); color: var(--forest-800); font-size: 0.95rem; }
+.sponsor-form { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-top: 1.4rem; text-align: left; }
+.sponsor-form[hidden] { display: none; }
+.sponsor-form .full { grid-column: 1 / -1; }
+.sponsor-cta-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; justify-content: center; }
+.link-btn { background: none; border: 0; color: var(--ink-soft); text-decoration: underline; cursor: pointer; font-size: 0.9rem; font-family: var(--font-body); }
+
+@media (max-width: 1000px) {
+  .faq-grid, .involve-grid { grid-template-columns: 1fr; }
+  .wins-grid, .sponsor-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 680px) {
+  .wins-grid, .sponsor-grid, .sponsor-form { grid-template-columns: 1fr; }
+}

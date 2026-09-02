@@ -229,65 +229,164 @@
       </div>
     </section>
 
-    <!-- ============ GALLERY ============ -->
+    <!-- ============ GALLERY CAROUSEL ============ -->
     <section class="section section-alt" id="gallery">
       <div class="container">
-        <p class="section-eyebrow">Our community</p>
-        <h2 class="section-title">Moments from our meetups</h2>
-        <p class="section-lede">
-          A look at the women, the connections, and the energy in the room. Want to be
-          in the next photo? Come join us.
-        </p>
+        <div class="gallery-head">
+          <div>
+            <p class="section-eyebrow">Our community</p>
+            <h2 class="section-title">Moments from our meetups</h2>
+            <p class="section-lede">A look at the women, the connections, and the energy in the room &mdash; plus recordings from past speakers.</p>
+          </div>
+          <div class="gallery-arrows">
+            <button class="gal-arrow" type="button" data-car-prev aria-label="Previous">&larr;</button>
+            <button class="gal-arrow" type="button" data-car-next aria-label="Next">&rarr;</button>
+          </div>
+        </div>
 
-        <!-- PHOTO SLOTS: drop your photos in as assets/img/meetup-1.jpg … meetup-6.jpg
-             (any landscape photos work). Each tile falls back to a placeholder until
-             you add a photo. Add or remove tiles freely. -->
-        <div class="gallery-grid">
-          <figure class="gallery-item">
-            <img src="assets/img/meetup-group.jpg" alt="Our community together at a recent gathering"
-                 loading="lazy" onerror="this.onerror=null;this.src='assets/img/gallery-placeholder.svg';" />
-          </figure>
-          <figure class="gallery-item">
-            <img src="assets/img/meetup-3.jpg" alt="Members connecting over dinner"
-                 loading="lazy" onerror="this.onerror=null;this.src='assets/img/gallery-placeholder.svg';" />
-          </figure>
-          <figure class="gallery-item">
-            <img src="assets/img/meetup-4.jpg" alt="The group at a community event"
-                 loading="lazy" onerror="this.onerror=null;this.src='assets/img/gallery-placeholder.svg';" />
-          </figure>
+        <!-- PHOTOS: drop assets/img/room-speaker.jpg, room-crowd.jpg, room-networking.jpg
+             for the first slides; each falls back to a placeholder until added. -->
+        <div class="gallery-carousel" data-carousel>
+          <div class="gallery-rail">
+            <figure class="gal-slide"><img src="assets/img/room-speaker.jpg" alt="A speaker at the meetup" loading="lazy" onerror="this.onerror=null;this.src='assets/img/gallery-placeholder.svg';" /></figure>
+            <figure class="gal-slide"><img src="assets/img/room-crowd.jpg" alt="The room during a session" loading="lazy" onerror="this.onerror=null;this.src='assets/img/gallery-placeholder.svg';" /></figure>
+            <figure class="gal-slide is-video"><iframe src="https://www.youtube-nocookie.com/embed/CTKLJ6zOGaU" title="Meetup recording" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></figure>
+            <figure class="gal-slide"><img src="assets/img/room-networking.jpg" alt="Members networking" loading="lazy" onerror="this.onerror=null;this.src='assets/img/gallery-placeholder.svg';" /></figure>
+            <figure class="gal-slide"><img src="assets/img/meetup-1.jpg" alt="Members at a closing table" style="object-position:center 30%" loading="lazy" onerror="this.onerror=null;this.src='assets/img/gallery-placeholder.svg';" /></figure>
+            <figure class="gal-slide"><img src="assets/img/meetup-2.jpg" alt="Members celebrating a closing" loading="lazy" onerror="this.onerror=null;this.src='assets/img/gallery-placeholder.svg';" /></figure>
+            <figure class="gal-slide"><img src="assets/img/meetup-5.jpg" alt="Members at a meetup" loading="lazy" onerror="this.onerror=null;this.src='assets/img/gallery-placeholder.svg';" /></figure>
+          </div>
+        </div>
+        <p class="gallery-caption">Recordings from past speakers live on the <a href="past/">past meetups page</a>.</p>
+      </div>
+    </section>
+
+    <!-- ============ MEMBER WINS ============ -->
+    <section class="section" id="wins">
+      <div class="container">
+        <p class="section-eyebrow">Member wins</p>
+        <h2 class="section-title">Real women, real progress</h2>
+        <p class="section-lede">First deals, refis, new partnerships &mdash; the wins that start in this room.</p>
+        <div class="wins-grid">
+          <blockquote class="win-card"><p class="slot">member win quote slot — a sentence or two in her words</p><footer class="win-by">Name · what she did</footer></blockquote>
+          <blockquote class="win-card"><p class="slot">member win quote slot — a sentence or two in her words</p><footer class="win-by">Name · what she did</footer></blockquote>
+          <blockquote class="win-card"><p class="slot">member win quote slot — a sentence or two in her words</p><footer class="win-by">Name · what she did</footer></blockquote>
         </div>
       </div>
     </section>
 
-    <!-- ============ CALENDAR ============ -->
+    <!-- ============ FIRST TIME? (FAQ) ============ -->
+    <section class="section section-alt" id="first-time">
+      <div class="container faq-grid">
+        <div>
+          <p class="section-eyebrow">First time?</p>
+          <h2 class="section-title">What to expect</h2>
+          <p class="section-lede">Come as you are &mdash; here's how the night goes and what to know before you walk in.</p>
+          <div class="faq-form-card">
+            <h3>Still have a question?</h3>
+            <p>Leave your name and number and we'll text you back.</p>
+            <form data-form="text_me_back" data-success="Got it — we'll text you back soon.">
+              <div class="form-row">
+                <input class="field" name="name" placeholder="First name" required />
+                <input class="field" name="phone" type="tel" placeholder="(404) 555-0123" required />
+                <textarea class="field" name="question" rows="2" placeholder="Your question (optional)"></textarea>
+                <div class="involve-actions">
+                  <button class="btn btn-primary btn-sm" type="submit">Text me back</button>
+                  <span class="form-note" data-note></span>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <dl class="faq-dl">
+          <div><dt>Do I need to know anything about investing?</dt><dd>Not at all. We get complete beginners and seasoned investors in the same room &mdash; come curious and ask anything.</dd></div>
+          <div><dt>Is it really free?</dt><dd>Yes. RSVP on Eventbrite so we can plan the space; the meetup itself is free to attend.</dd></div>
+          <div><dt>What time should I arrive?</dt><dd>Doors open at 6:30 for drinks and food; the speaker starts around 7. Come early to settle in and meet people.</dd></div>
+          <div><dt>Can I come alone?</dt><dd>Absolutely &mdash; most people do their first time. You'll be welcomed, and you won't be alone for long.</dd></div>
+          <div><dt>Is parking easy?</dt><dd>Yes, there's parking at New Realm Brewing. We'll send details with your RSVP confirmation.</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============ GET INVOLVED ============ -->
+    <section class="section" id="get-involved">
+      <div class="container">
+        <p class="section-eyebrow">Get involved</p>
+        <h2 class="section-title">Bring someone, or take the mic</h2>
+        <div class="involve-grid">
+          <div class="involve-card">
+            <h3>Bring a friend</h3>
+            <p>Investing is better with a buddy. Send her an invite to the next meetup.</p>
+            <form data-form="friend_referral" data-success="Invite sent — thanks for spreading the word!">
+              <div class="form-row">
+                <input class="field" name="name" placeholder="Your first name" />
+                <input class="field" name="email" type="email" placeholder="Your email" required />
+                <input class="field" name="friendName" placeholder="Her name" />
+                <input class="field" name="friendEmail" type="email" placeholder="Her email" />
+                <div class="involve-actions">
+                  <button class="btn btn-primary btn-sm" type="submit">Send her an invite</button>
+                  <button class="btn btn-ghost btn-sm" type="button" data-copy>Copy link</button>
+                  <span class="form-note" data-note></span>
+                </div>
+              </div>
+            </form>
+            <p class="involve-foot"><a data-collection target="_blank" rel="noopener" href="#">Grab this month's flier &rarr;</a></p>
+          </div>
+          <div class="involve-card involve-card--dark">
+            <h3>Speak at a meetup</h3>
+            <p>Have a strategy or story our members would love? Pitch a topic.</p>
+            <form data-form="speaker_application" data-success="Thanks — we'll be in touch about speaking.">
+              <div class="form-row">
+                <input class="field" name="name" placeholder="Your name" />
+                <input class="field" name="email" type="email" placeholder="Your email" required />
+                <textarea class="field" name="topic" rows="2" placeholder="What would you speak about?"></textarea>
+                <div class="involve-actions">
+                  <button class="btn btn-primary btn-sm" type="submit">Pitch a topic</button>
+                  <span class="form-note" data-note></span>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ SPONSORS ============ -->
-    <section class="section" id="sponsors">
+    <section class="section section-alt" id="sponsors">
       <div class="container">
         <p class="section-eyebrow">Our sponsors</p>
         <h2 class="section-title">Powered by partners who believe in the power of connection</h2>
         <p class="section-lede">
           Our meetups are made possible by local businesses that support women
-          investors &mdash; lenders, agents, title companies, and more. We're grateful
-          for them, and we'd love for you to support them too.
+          investors &mdash; lenders, agents, title companies, and more.
         </p>
 
-        <div class="sponsor-grid" id="sponsor-grid">
-          <!-- Drop in each sponsor's real logo by replacing the .sponsor-name span
-               with: <img src="assets/img/sponsor-peachtree.svg" alt="Peachtree Planning" /> -->
-          <a class="sponsor" href="#" target="_blank" rel="noopener">
-            <span class="sponsor-name">Peachtree Planning</span>
-            <span class="sponsor-tag">Financial planning &amp; wealth strategy</span>
-          </a>
+        <div class="sponsor-grid">
           <a class="sponsor" href="https://www.cvlending.com/meet-the-team/jasmine-brown/" target="_blank" rel="noopener">
             <span class="sponsor-name">Conventus</span>
             <span class="sponsor-tag">Real estate lending</span>
           </a>
+          <div class="sponsor sponsor-slot"><strong>Your logo here</strong><span>sponsor slot open</span></div>
+          <div class="sponsor sponsor-slot"><strong>Your logo here</strong><span>sponsor slot open</span></div>
         </div>
 
-        <div class="sponsor-cta">
+        <div class="sponsor-cta" data-sponsor-fold>
           <h3>Interested in sponsoring?</h3>
           <p>Reach an engaged audience of motivated women investors across metro Atlanta.</p>
-          <a href="mailto:hello@atlantawomeninvestors.com?subject=Sponsorship%20Inquiry" class="btn btn-primary">Become a Sponsor</a>
+          <div class="sponsor-cta-actions">
+            <button class="btn btn-primary" type="button" data-sponsor-open>Become a Sponsor</button>
+          </div>
+          <form class="sponsor-form" data-form="sponsor_inquiry" data-success="Thanks — we'll reach out about sponsorship." hidden>
+            <input class="field" name="name" placeholder="Your name" />
+            <input class="field" name="email" type="email" placeholder="Email" required />
+            <input class="field full" name="company" placeholder="Company" />
+            <textarea class="field full" name="message" rows="3" placeholder="Tell us about your business"></textarea>
+            <div class="full sponsor-cta-actions" style="justify-content:flex-start">
+              <button class="btn btn-primary btn-sm" type="submit">Send inquiry</button>
+              <button class="link-btn" type="button" data-sponsor-cancel>Cancel</button>
+              <span class="form-note" data-note></span>
+            </div>
+          </form>
         </div>
       </div>
     </section>
