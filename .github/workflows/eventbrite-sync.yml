@@ -36,6 +36,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to publish."
           else
-            git commit -m "Sync meetups from Eventbrite [skip ci]"
+            git commit -m "Sync meetups from Eventbrite"
             git push
           fi
