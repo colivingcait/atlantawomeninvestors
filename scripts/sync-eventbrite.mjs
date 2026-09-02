@@ -27,7 +27,10 @@ const MOCK = process.env.EVENTBRITE_MOCK;
 
 // Hide events whose title matches (e.g. cancelled / not part of the meetup series).
 const EXCLUDE_TITLE = /coliving summit/i;
-const keep = (items) => items.filter((e) => e.topic && !EXCLUDE_TITLE.test(e.topic));
+// Hide specific event ids (e.g. a duplicate listing of the same meetup).
+const EXCLUDE_IDS = new Set(["1990612153537"]); // generic July 28 dup of House Hacking
+const keep = (items) =>
+  items.filter((e) => e.topic && !EXCLUDE_TITLE.test(e.topic) && !EXCLUDE_IDS.has(String(e.id)));
 
 async function api(pathname, params = {}) {
   const url = new URL(API + pathname);

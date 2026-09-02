@@ -12,15 +12,6 @@ window.PAST_MEETUPS = [
     "photos": []
   },
   {
-    "id": "1990612153537",
-    "date": "2026-07-28",
-    "topic": "Women Real Estate Investors Meetup",
-    "summary": "For the woman building her real estate investment portfolio: the meetup where real connections are made. Wealth building with house hacking",
-    "eventbriteUrl": "https://www.eventbrite.com/e/women-real-estate-investors-meetup-tickets-1990612153537",
-    "youtubeId": "",
-    "photos": []
-  },
-  {
     "id": "1990612059255",
     "date": "2026-07-28",
     "topic": "House Hacking 101: Let Your Home Pay Your Mortgage",
