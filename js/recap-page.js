@@ -47,7 +47,7 @@
   }
 
   // share + original event
-  var shareUrl = location.origin + "/recap/" + rec.slug + "/";
+  var shareUrl = location.origin + "/recap/?slug=" + rec.slug;
   if ($("recap-share-url")) $("recap-share-url").textContent = "Share this page — " + shareUrl.replace(/^https?:\/\//, "");
   if ($("recap-copy")) $("recap-copy").dataset.copy = shareUrl;
   if ($("recap-event")) $("recap-event").href = m.eventbriteUrl || CONFIG.eventbriteUrl || "#";
@@ -82,7 +82,7 @@
   if ($("recap-others")) {
     $("recap-others").innerHTML = others.map(function (r) {
       var od = new Date(r.item.date + "T12:00:00");
-      return '<a class="recap-other" href="/recap/' + r.slug + '/"><p class="d">' +
+      return '<a class="recap-other" href="/recap/?slug=' + r.slug + '"><p class="d">' +
         od.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) +
         '</p><strong>' + esc(r.item.topic) + '</strong><span class="go">View recap &rarr;</span></a>';
     }).join("");

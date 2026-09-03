@@ -27,7 +27,7 @@
         '<h3>' + esc(f.item.topic) + '</h3>' +
         '<p class="d" style="color:var(--teal-600);font-weight:600;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 0.5rem">' + fmt(f.item.date) + '</p>' +
         '<p>' + esc(f.item.summary) + '</p>' +
-        '<a class="btn btn-primary" href="/recap/' + f.slug + '/">Open the recap page</a>' +
+        '<a class="btn btn-primary" href="/recap/?slug=' + f.slug + '">Open the recap page</a>' +
       '</div>';
     fe.hidden = false;
   }
@@ -39,7 +39,7 @@
     grid.innerHTML = rest.map(function (r) {
       var m = r.item;
       var pill = m.youtubeId ? '<span class="rec-pill">Recording</span>' : "";
-      return '<a class="past-item" href="/recap/' + r.slug + '/">' +
+      return '<a class="past-item" href="/recap/?slug=' + r.slug + '">' +
         mediaBlock(m, "past-item-media") +
         '<div class="past-item-body">' + pill +
           '<p class="d">' + fmt(m.date) + '</p>' +
