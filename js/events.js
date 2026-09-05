@@ -4,11 +4,11 @@ window.EVENTS = [
   {
     "id": "1998514355235",
     "date": "2026-09-22",
-    "topic": "Women Real Estate Investors Meetup",
+    "topic": "Fix, Flip and Profit: Successfully Flipping in Today's Market",
     "summary": "Ladies, whether you're just starting out or a seasoned pro, this is the space for you to gather with fellow women real estate investors.",
     "body": "Ladies, whether you're just starting out or a seasoned pro, this is the space for you to gather with fellow women real estate investors.",
     "speaker": "",
-    "eventbriteUrl": "https://www.eventbrite.com/e/women-real-estate-investors-meetup-tickets-1998514355235"
+    "eventbriteUrl": "https://www.eventbrite.com/e/fix-flip-and-profit-successfully-flipping-in-todays-market-tickets-1998514355235"
   },
   {
     "id": "1998516329139",
