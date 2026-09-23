@@ -3,6 +3,15 @@
    and are preserved across syncs (matched by "id"). */
 window.PAST_MEETUPS = [
   {
+    "id": "1998514355235",
+    "date": "2026-09-22",
+    "topic": "Fix, Flip and Profit: Successfully Flipping in Today's Market",
+    "summary": "Ladies, whether you're just starting out or a seasoned pro, this is the space for you to gather with fellow women real estate investors.",
+    "eventbriteUrl": "https://www.eventbrite.com/e/fix-flip-and-profit-successfully-flipping-in-todays-market-tickets-1998514355235",
+    "youtubeId": "",
+    "photos": []
+  },
+  {
     "id": "1994908953381",
     "date": "2026-08-25",
     "topic": "Inside the Making of a 250-Home Neighborhood",
