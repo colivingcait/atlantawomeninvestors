@@ -3,10 +3,12 @@
    Used by both the homepage and the /event landing page.
    ========================================================= */
 window.CONFIG = {
-  // Eventbrite: every "RSVP" button points here. Using the collection page so
-  // visitors see all upcoming monthly meetups and can pick a date.
-  eventbriteEventId: "1990612059255", // (kept for reference; embed not used)
-  eventbriteUrl: "https://www.eventbrite.com/cc/women-real-estate-investors-atl-monthly-meetups-4833857",
+  // Organizer page for these meetups (the listings in js/events.js).
+  // RSVP, Add to Calendar, and "all dates" buttons point here.
+  // This is the Women Real Estate Investors Meetup organizer, not the
+  // House Hacking Atlanta organizer used on colivingcait.com.
+  eventbriteEventId: "1998516329139", // next listing; embed not used
+  eventbriteUrl: "https://www.eventbrite.com/o/women-real-estate-investors-meetup-121211260760",
 
   // Meetup recurrence used to build the calendar + "add to calendar".
   // weekday: 0=Sun ... 6=Sat. nth: 1=first, 2=second, 3=third, 4=fourth, -1=last.

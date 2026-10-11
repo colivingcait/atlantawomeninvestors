@@ -32,7 +32,7 @@ jobs:
         run: |
           git config user.name "eventbrite-sync[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add js/events.js js/past.js
+          git add js/events.js js/past.js index.html
           if git diff --cached --quiet; then
             echo "No changes to publish."
           else

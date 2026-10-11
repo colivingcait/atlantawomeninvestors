@@ -70,12 +70,8 @@
     if ($("recap-next-date")) $("recap-next-date").textContent = nd.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" });
     var tr = window.meetupTimeRange ? window.meetupTimeRange() : "6:30–9:30 PM";
     if ($("recap-next-meta")) $("recap-next-meta").textContent = tr + " · " + venue + " · Free";
-    if ($("recap-next-rsvp")) $("recap-next-rsvp").href = next.eventbriteUrl || CONFIG.eventbriteUrl || "#";
+    if ($("recap-next-rsvp")) $("recap-next-rsvp").href = CONFIG.eventbriteUrl || "#";
   }
-
-  // recap signup form context
-  var form = document.querySelector('form[data-form="recap_recordings"]');
-  if (form) form.dataset.meetup = m.date + " " + m.topic;
 
   // other past meetups
   var others = recaps.filter(function (r) { return r.slug !== rec.slug; }).slice(0, 3);

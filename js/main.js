@@ -75,7 +75,6 @@ function eventForDay(year, month, day) {
   const list = document.getElementById("topic-list");
   const empty = document.getElementById("topic-empty");
   const whenEl = document.getElementById("rsvp-when");
-  const icsBtn = document.getElementById("add-to-calendar");
   if (!featured || !list) return;
 
   const upcoming = upcomingEvents();
@@ -84,16 +83,20 @@ function eventForDay(year, month, day) {
   const timeRange = window.meetupTimeRange
     ? window.meetupTimeRange()
     : `${fmt(CONFIG.meetup.startHour)}–${fmt(CONFIG.meetup.startHour + CONFIG.meetup.durationHours)} PM`;
-  const rsvpFor = (e) => (e && e.eventbriteUrl) || CONFIG.eventbriteUrl || "#";
+  const organizer = CONFIG.eventbriteUrl || "#";
+  const rsvpFor = (e) => (e && e.eventbriteUrl) || organizer;
 
-  // Always point RSVP buttons somewhere sensible, and render the venue block.
-  document.querySelectorAll("[data-rsvp]").forEach((a) => (a.href = rsvpFor(upcoming[0])));
-  document.querySelectorAll("[data-collection]").forEach((a) => (a.href = CONFIG.eventbriteUrl || "#"));
+  // RSVP, calendar, and "all dates" go to the organizer page (real hrefs in HTML too).
+  document.querySelectorAll("[data-rsvp], [data-collection], [data-calendar]").forEach((a) => {
+    a.href = organizer;
+  });
   if (window.renderVenue) window.renderVenue(document.getElementById("venue-body"));
 
+  const heroNext = document.getElementById("hero-next");
   if (!upcoming.length) {
     if (empty) empty.hidden = false;
-    if (whenEl) whenEl.textContent = "Date to be announced";
+    if (whenEl) whenEl.textContent = "Dates are on Eventbrite";
+    if (heroNext) heroNext.textContent = "Dates are on Eventbrite";
     return;
   }
 
@@ -128,36 +131,9 @@ function eventForDay(year, month, day) {
   `;
   featured.hidden = false;
 
-  // ---- RIGHT: RSVP / mark-your-calendar ----
+  // ---- RIGHT: RSVP / calendar (both already point at the organizer page) ----
+  if (heroNext) heroNext.textContent = `Next meetup: ${fDate.toLocaleDateString("en-US", dateOpts)}`;
   if (whenEl) whenEl.textContent = `${fDate.toLocaleDateString("en-US", dateOpts)} · ${timeRange}`;
-  if (icsBtn) {
-    icsBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      const pad = (n) => String(n).padStart(2, "0");
-      const toICS = (d) =>
-        d.getUTCFullYear() + pad(d.getUTCMonth() + 1) + pad(d.getUTCDate()) +
-        "T" + pad(d.getUTCHours()) + pad(d.getUTCMinutes()) + "00Z";
-      const end = new Date(fDate.getTime() + CONFIG.meetup.durationHours * 3600 * 1000);
-      const coming = !f.topic || /^coming soon$/i.test(f.topic.trim());
-      const summary = coming ? CONFIG.meetup.title : `${CONFIG.meetup.title}: ${f.topic}`;
-      const ics = [
-        "BEGIN:VCALENDAR", "VERSION:2.0",
-        "PRODID:-//Atlanta Women Investors//Meetup//EN", "BEGIN:VEVENT",
-        "UID:" + toICS(fDate) + "@atlantawomeninvestors.com",
-        "DTSTAMP:" + toICS(new Date()),
-        "DTSTART:" + toICS(fDate), "DTEND:" + toICS(end),
-        "SUMMARY:" + summary,
-        "LOCATION:" + (window.venueLocation ? window.venueLocation() : CONFIG.meetup.location),
-        "DESCRIPTION:" + (f.summary || CONFIG.meetup.description),
-        "END:VEVENT", "END:VCALENDAR",
-      ].join("\r\n");
-      const url = URL.createObjectURL(new Blob([ics], { type: "text/calendar;charset=utf-8" }));
-      const a = document.createElement("a");
-      a.href = url; a.download = "awi-meetup.ics";
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    });
-  }
 
   // ---- BELOW: the next few meetups + topics ----
   const rest = upcoming.slice(1, 5);
@@ -365,7 +341,7 @@ function eventForDay(year, month, day) {
     } catch (err) {
       note.classList.add("error");
       note.textContent =
-        "Something went wrong. Please try again or email hello@atlantawomeninvestors.com.";
+        "Something went wrong. Please try again or email CV.SellsHomes@gmail.com.";
     }
   });
 })();
