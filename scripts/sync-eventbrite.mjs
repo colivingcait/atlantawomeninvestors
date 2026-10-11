@@ -15,11 +15,15 @@
    ========================================================= */
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import vm from "node:vm";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const EVENTS_FILE = path.join(ROOT, "js", "events.js");
 const PAST_FILE = path.join(ROOT, "js", "past.js");
+const INDEX_FILE = path.join(ROOT, "index.html");
+const CONFIG_FILE = path.join(ROOT, "js", "config.js");
+const JSONLD_FILE = path.join(ROOT, "js", "jsonld.js");
 const API = "https://www.eventbriteapi.com/v3";
 
 const TOKEN = process.env.EVENTBRITE_TOKEN;
@@ -109,6 +113,26 @@ function writeDataFile(file, varName, header, items) {
   fs.writeFileSync(file, body);
 }
 
+/* Rewrite the homepage JSON-LD from the events list. buildAwiJsonLd drops
+   dates before today in America/New_York, so crawlers stop seeing past events
+   even when this file is served with JavaScript off. */
+export function refreshIndexJsonLd(events, indexPath = INDEX_FILE) {
+  const context = { console, Intl, Date, JSON };
+  context.globalThis = context;
+  context.window = context;
+  vm.createContext(context);
+  vm.runInContext(fs.readFileSync(CONFIG_FILE, "utf8"), context);
+  vm.runInContext(fs.readFileSync(JSONLD_FILE, "utf8"), context);
+  const data = context.buildAwiJsonLd(events, undefined, context.CONFIG && context.CONFIG.eventbriteUrl);
+  const json = JSON.stringify(data, null, 2).replace(/</g, "\\u003c");
+  const html = fs.readFileSync(indexPath, "utf8");
+  const re = /(<script type="application\/ld\+json" id="site-jsonld">)([\s\S]*?)(<\/script>)/;
+  if (!re.test(html)) throw new Error('No <script id="site-jsonld"> block in ' + indexPath);
+  const next = html.replace(re, `$1\n${json}\n  $3`);
+  fs.writeFileSync(indexPath, next);
+  return data;
+}
+
 const EVENTS_HEADER = `/* AUTO-GENERATED from Eventbrite by scripts/sync-eventbrite.mjs.
    Do not hand-edit — change the event in Eventbrite instead. */`;
 const PAST_HEADER = `/* AUTO-GENERATED from Eventbrite by scripts/sync-eventbrite.mjs.
@@ -126,7 +150,10 @@ async function main() {
     past = all.filter((e) => e.date < today).sort((a, b) => b.date.localeCompare(a.date));
   } else {
     if (!TOKEN) {
-      console.log("EVENTBRITE_TOKEN not set — skipping sync (no changes).");
+      console.log("EVENTBRITE_TOKEN not set — leaving events.js unchanged.");
+      const existing = loadWindowArray(EVENTS_FILE, "EVENTS");
+      refreshIndexJsonLd(existing);
+      console.log(`Rewrote homepage JSON-LD from ${existing.length} events on disk.`);
       return;
     }
     let orgId = process.env.EVENTBRITE_ORG_ID;
@@ -167,11 +194,16 @@ async function main() {
 
   writeDataFile(EVENTS_FILE, "EVENTS", EVENTS_HEADER, upcoming);
   writeDataFile(PAST_FILE, "PAST_MEETUPS", PAST_HEADER, mergedPast);
+  const graph = refreshIndexJsonLd(upcoming);
+  const eventCount = graph["@graph"].filter((n) => n["@type"] === "Event").length;
 
-  console.log(`Synced: ${upcoming.length} upcoming, ${mergedPast.length} past.`);
+  console.log(`Synced: ${upcoming.length} upcoming, ${mergedPast.length} past. JSON-LD events: ${eventCount}.`);
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+const invokedDirectly = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
+if (invokedDirectly) {
+  main().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}

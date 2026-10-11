@@ -1,13 +1,17 @@
 /* JSON-LD for the homepage. One @graph:
    Organization, Caitlyn (same @id as her other sites), the monthly
    EventSeries, and upcoming Event nodes from js/events.js.
-   Past dates are left out. The <script id="site-jsonld"> in index.html
-   is the no-JS copy; this refreshes it from EVENTS. */
+   Past dates are left out. scripts/sync-eventbrite.mjs rewrites the
+   <script id="site-jsonld"> block in index.html on each daily sync.
+   This file refreshes that block in the browser as a backup. */
+
 (function (root) {
   var PERSON = "https://www.colivingcait.com/#caitlyn";
   var ORG = "https://www.atlantawomeninvestors.com/#organization";
   var SERIES = "https://www.atlantawomeninvestors.com/#meetup-series";
   var SITE = "https://www.atlantawomeninvestors.com";
+  /* Indoor meetup photo already on the site. Not an exterior or a property. */
+  var EVENT_IMAGE = SITE + "/assets/img/meetup-4.jpg";
 
   function pad(n) { return String(n).padStart(2, "0"); }
 
@@ -89,8 +93,16 @@
         "endDate": atlantaStamp(e.date, endHour, startMinute),
         "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
         "eventStatus": "https://schema.org/EventScheduled",
+        "image": EVENT_IMAGE,
         "isAccessibleForFree": true,
         "url": e.eventbriteUrl || eventbrite,
+        "offers": {
+          "@type": "Offer",
+          "price": 0,
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": e.eventbriteUrl || eventbrite,
+        },
         "location": place(),
         "organizer": { "@id": ORG },
         "superEvent": { "@id": SERIES },
