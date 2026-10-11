@@ -56,7 +56,7 @@
         form.reset();
         setNote(form.dataset.success || "Thanks — we'll be in touch!");
       } catch (err) {
-        setNote("Something went wrong — email hello@atlantawomeninvestors.com and we'll add you.", true);
+        setNote("Something went wrong — email CV.SellsHomes@gmail.com and we'll add you.", true);
       }
     });
   });

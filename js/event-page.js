@@ -31,7 +31,7 @@
     sorted.find((e) => parseEventDate(e.date) >= startOfToday) ||
     sorted[sorted.length - 1];
 
-  const rsvpUrl = (ev && ev.eventbriteUrl) || CONFIG.eventbriteUrl || "#";
+  const organizer = CONFIG.eventbriteUrl || "#";
 
   const $ = (id) => document.getElementById(id);
   const fmtTime = (h) => (h > 12 ? h - 12 : h);
@@ -39,8 +39,8 @@
     ? window.meetupTimeRange()
     : `${fmtTime(CONFIG.meetup.startHour)}–${fmtTime(CONFIG.meetup.startHour + CONFIG.meetup.durationHours)} PM`;
 
-  // wire all RSVP buttons + render the venue block
-  document.querySelectorAll("[data-rsvp]").forEach((a) => (a.href = rsvpUrl));
+  // RSVP and Add to Calendar go to the organizer page.
+  document.querySelectorAll("[data-rsvp], [data-calendar]").forEach((a) => (a.href = organizer));
   if (window.renderVenue) window.renderVenue(document.getElementById("venue-body"));
 
   if (!ev) {
@@ -87,36 +87,6 @@
   setMeta('meta[property="og:title"]', titleStr);
   setMeta('meta[name="description"]', ev.summary || CONFIG.meetup.description);
   setMeta('meta[property="og:description"]', ev.summary || CONFIG.meetup.description);
-
-  // ---- Add to Calendar (.ics) ----
-  const icsBtn = $("ev-ics");
-  if (icsBtn) {
-    icsBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      const pad = (n) => String(n).padStart(2, "0");
-      const toICS = (d) =>
-        d.getUTCFullYear() + pad(d.getUTCMonth() + 1) + pad(d.getUTCDate()) +
-        "T" + pad(d.getUTCHours()) + pad(d.getUTCMinutes()) + "00Z";
-      const end = new Date(dt.getTime() + CONFIG.meetup.durationHours * 3600 * 1000);
-      const summary = coming ? CONFIG.meetup.title : CONFIG.meetup.title + ": " + ev.topic;
-      const ics = [
-        "BEGIN:VCALENDAR", "VERSION:2.0",
-        "PRODID:-//Atlanta Women Investors//Meetup//EN", "BEGIN:VEVENT",
-        "UID:" + toICS(dt) + "@atlantawomeninvestors.com",
-        "DTSTAMP:" + toICS(new Date()),
-        "DTSTART:" + toICS(dt), "DTEND:" + toICS(end),
-        "SUMMARY:" + summary,
-        "LOCATION:" + (window.venueLocation ? window.venueLocation() : CONFIG.meetup.location),
-        "DESCRIPTION:" + (ev.summary || CONFIG.meetup.description),
-        "END:VEVENT", "END:VCALENDAR",
-      ].join("\r\n");
-      const url = URL.createObjectURL(new Blob([ics], { type: "text/calendar;charset=utf-8" }));
-      const a = document.createElement("a");
-      a.href = url; a.download = "awi-meetup.ics";
-      document.body.appendChild(a); a.click(); document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    });
-  }
 
   // footer year
   if ($("year")) $("year").textContent = new Date().getFullYear();
