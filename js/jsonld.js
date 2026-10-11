@@ -10,8 +10,8 @@
   var ORG = "https://www.atlantawomeninvestors.com/#organization";
   var SERIES = "https://www.atlantawomeninvestors.com/#meetup-series";
   var SITE = "https://www.atlantawomeninvestors.com";
-  /* Indoor meetup photo already on the site. Not an exterior or a property. */
-  var EVENT_IMAGE = SITE + "/assets/img/meetup-4.jpg";
+  /* Indoor women's meetup photo from the gallery. Not an exterior or a property. */
+  var EVENT_IMAGE = SITE + "/assets/img/meetup-group.jpg";
 
   function pad(n) { return String(n).padStart(2, "0"); }
 
